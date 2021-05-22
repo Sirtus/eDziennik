@@ -2,6 +2,7 @@ package sample;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -21,12 +22,36 @@ public class Subject {
     public Subject() {
     }
 
-    public Subject(String name, Set<Teacher> teachers, Set<SchoolClass> classes) {
+    public Subject(String name) {
         this.name = name;
-        this.teachers = teachers;
-        this.classes = classes;
     }
 
+    public Subject(String name, Set<Teacher> teachers, Set<SchoolClass> classes) {
+        this.name = name;
+        Iterator<Teacher> teacher = teachers.iterator();
+        while(teacher.hasNext()){
+            this.addTeacher(teacher.next());
+        }
+
+        Iterator<SchoolClass> schoolClass = classes.iterator();
+        while(schoolClass.hasNext()){
+            this.addClass(schoolClass.next());
+        }
+    }
+
+    //two-sided relations functions
+    //use instead set functions
+    public void addClass(SchoolClass schoolClass){
+        this.setClass(schoolClass);
+        schoolClass.setSubject(this);
+    }
+
+    public void addTeacher(Teacher teacher){
+        this.setTeacher(teacher);
+        teacher.setSubject(this);
+    }
+
+    //getters and setters
     public int getID() {
         return ID;
     }
@@ -43,15 +68,15 @@ public class Subject {
         return teachers;
     }
 
-    public void setTeachers(Set<Teacher> teachers) {
-        this.teachers = teachers;
+    public void setTeacher(Teacher teacher) {
+        this.teachers.add(teacher);
     }
 
     public Set<SchoolClass> getClasses() {
         return classes;
     }
 
-    public void setClasses(Set<SchoolClass> classes) {
-        this.classes = classes;
+    public void setClass(SchoolClass schoolClass) {
+        this.classes.add(schoolClass);
     }
 }

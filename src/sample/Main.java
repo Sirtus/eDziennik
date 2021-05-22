@@ -40,9 +40,9 @@ public class Main extends Application {
 
         //example data
 
-        Person t1 = new Teacher( "Arkadiusz", "Trawa", "012312453453", new Date(), "mgr");
+        Person t1 = new Teacher( "Arkadiusz", "Trawa", "012312453453", new Date(), "mgr", "AT123", "fushoug");
         SchoolClass sc1 = new SchoolClass(2, 3, "c", (Teacher) t1);
-        Person s1 = new Student( "Patryk", "Woda", "01234533453", new Date(), sc1);
+        Person s1 = new Student( "Patryk", "Woda", "01234533453", new Date(), sc1,"PW123", "ieufwe");
 
         Set<Teacher> teachers = new HashSet<>();
         teachers.add((Teacher) t1);

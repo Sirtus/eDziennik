@@ -20,11 +20,24 @@ public class Student extends Person {
     public Student() {
     }
 
-    public Student(String firstname, String lastname, String pesel, Date birthdate, SchoolClass myClass) {
-        super(firstname, lastname, pesel, birthdate);
-        this.myClass = myClass;
+    public Student(String firstname, String lastname, String pesel, Date birthdate, SchoolClass myClass, String login, String password) {
+        super(firstname, lastname, pesel, birthdate, login, password);
+        this.updateMyClass(myClass);
     }
 
+    //two-sided relations functions
+    //use instead set functions
+    public void updateMyClass(SchoolClass myClass){
+        this.setMyClass(myClass);
+        myClass.setStudent(this);
+    }
+
+    public void addGrade(Grade grade){
+        this.setGrade(grade);
+        grade.setStudent(this);
+    }
+
+    //getters and setters
     public int getID() {
         return ID;
     }
@@ -41,7 +54,7 @@ public class Student extends Person {
         return grades;
     }
 
-    public void setGrades(Set<Grade> grades) {
-        this.grades = grades;
+    public void setGrade(Grade grade) {
+        this.grades.add(grade);
     }
 }

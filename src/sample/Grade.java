@@ -24,11 +24,25 @@ public class Grade {
 
     public Grade(int mark, Subject subject, Student student, Teacher teacher) {
         this.mark = mark;
-        this.subject = subject;
-        this.student = student;
-        this.teacher = teacher;
+        this.updateStudent(student);
+        this.updateSubject(subject);
+        this.updateTeacher(teacher);
     }
 
+    //two-sided relations functions
+    //use instead set functions
+    public void updateStudent(Student student){
+        this.setStudent(student);
+        student.setGrade(this);
+    }
+    public void updateTeacher(Teacher teacher){
+        this.setTeacher(teacher);
+    }
+    public void updateSubject(Subject subject){
+        this.setSubject(subject);
+    }
+
+    //getters and setters
     public int getID() {
         return ID;
     }

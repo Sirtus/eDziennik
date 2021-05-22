@@ -30,11 +30,25 @@ public class SchoolClass {
         this.numberOfStudents = numberOfStudents;
         this.classYear = year;
         this.department = department;
-        this.students = students;
-        this.classTeacher = teacher;
-        this.subjects = subjects;
+        this.updateClassTeacher(teacher);
     }
 
+    //two-sided relations functions
+    //use instead set functions
+    public void addStudent(Student student){
+        this.setStudent(student);
+        student.setMyClass(this);
+    }
+    public void addSubject(Subject subject){
+        this.setSubject(subject);
+        subject.setClass(this);
+    }
+    public void updateClassTeacher(Teacher classTeacher){
+        this.setClassTeacher(classTeacher);
+        classTeacher.setMyClass(this);
+    }
+
+    //getters and setters
     public int getID() {
         return ID;
     }
@@ -67,8 +81,8 @@ public class SchoolClass {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
-        this.students = students;
+    public void setStudent(Student student) {
+        this.students.add(student);
     }
 
     public Teacher getClassTeacher() {
@@ -83,7 +97,7 @@ public class SchoolClass {
         return subjects;
     }
 
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
+    public void setSubject(Subject subject) {
+        this.subjects.add(subject);
     }
 }

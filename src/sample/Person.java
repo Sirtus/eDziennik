@@ -14,15 +14,43 @@ public abstract class Person {
     private String lastname;
     private String pesel;
     private Date birthdate;
+    private String login;
+    private String password;
 
     public Person() {
     }
 
-    public Person(String firstname, String lastname, String pesel, Date birthdate) {
+    public Person(String firstname, String lastname, String pesel, Date birthdate, String login, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.pesel = pesel;
         this.birthdate = birthdate;
+        this.login = login;
+        this.password = password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getID() {
