@@ -7,7 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Pair;
 import sample.database.*;
+import sample.databaseCommunication.DatabaseCommunicator;
 import sample.gui.MainLayoutController;
 import sample.gui.views.ViewSwitcher;
 import sample.gui.views.ViewTypes;
@@ -18,6 +20,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 
@@ -25,7 +28,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         EntityManager session = getSession();
-        addSampleData();
+        DatabaseCommunicator db = new DatabaseCommunicator(session);
         launch(args);
     }
 
@@ -77,7 +80,7 @@ public class Main extends Application {
             session.persist(sub1);
             etx.commit();
         } finally {
-            //session.close();
+            session.close();
         }
     }
 

@@ -59,14 +59,6 @@ public abstract class Person {
         return ID;
     }
 
-    public String getName() {
-        return firstname;
-    }
-
-    public void setName(String firstname) {
-        this.firstname = firstname;
-    }
-
     public String getLastname() {
         return lastname;
     }
