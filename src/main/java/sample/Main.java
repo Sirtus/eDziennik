@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Pair;
 import sample.database.*;
 import sample.databaseCommunication.DatabaseCommunicator;
 import sample.gui.MainLayoutController;
@@ -20,11 +19,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 
 public class Main extends Application {
+
+    public static final double WINDOW_HEIGHT = 650;
+    public static final double WINDOW_WIDTH = 900;
+
 
     public static void main(String[] args) {
         EntityManager session = getSession();
@@ -34,17 +36,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        addSampleData();
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/mainLayout.fxml"));
-        System.out.println("main: " + getClass().getResource("/mainLayout.fxml").toString());
         Parent root = loader.load();
+        root.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+
         MainLayoutController mainLayoutController = loader.getController();
         ViewSwitcher viewSwitcher = new ViewSwitcher(mainLayoutController, getSession());
         viewSwitcher.setCurrentView(ViewTypes.LOGIN); // tu bedzie logowanie
 
 
         primaryStage.setTitle("eDziennik");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(
                 (WindowEvent t) -> {

@@ -16,6 +16,7 @@ import java.util.Set;
 
 public class DatabaseCommunicator {
     private int userId;
+    private Person user;
     private final EntityManager session;
     private Login login;
 
@@ -55,6 +56,15 @@ public class DatabaseCommunicator {
         }
         return null;
     }
+
+    public Student getStudentByID(int id) {
+        return session.find(Student.class, id);
+    }
+
+    public Teacher getTeacherByID(int id) {
+        return session.find(Teacher.class, id);
+    }
+
     public List<Pair<Subject, ArrayList<Grade>>> getStudentGrades(int studentID){
         Student student = session.find(Student.class, studentID);
 

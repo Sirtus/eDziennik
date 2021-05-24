@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: magenta;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.MainLayoutController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" style="-fx-background-color: magenta;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.MainLayoutController">
    <children>
-      <AnchorPane prefHeight="78.0" prefWidth="600.0" style="-fx-background-color: yellow;">
+      <AnchorPane prefHeight="100.0" prefWidth="900.0" style="-fx-background-color: yellow;">
          <children>
-            <Button fx:id="backButton" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#backButtonAction" text="Wstecz" />
-            <Label alignment="CENTER" layoutX="208.0" layoutY="17.0" prefHeight="45.0" prefWidth="228.0" style="-fx-font-weight: bold;" text="Witaj, nazwa" textAlignment="CENTER">
+            <Label alignment="CENTER" layoutX="336.0" layoutY="28.0" prefHeight="45.0" prefWidth="228.0" style="-fx-font-weight: bold;" text="Witaj, nazwa" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
+            <Button fx:id="backButton" layoutX="42.0" layoutY="39.0" mnemonicParsing="false" onAction="#backButtonAction" text="Wstecz" />
          </children>
       </AnchorPane>
-      <StackPane fx:id="viewContainer" layoutY="78.0" prefHeight="323.0" prefWidth="600.0" />
+      <StackPane fx:id="viewContainer" layoutY="100.0" maxHeight="550.0" maxWidth="900.0" />
    </children>
 </AnchorPane>

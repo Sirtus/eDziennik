@@ -1,0 +1,31 @@
+.grade6 {
+    -fx-background-color: black, lightskyblue;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+.grade5 {
+    -fx-background-color: black, aqua;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+.grade4 {
+    -fx-background-color: black, mediumpurple;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+.grade3 {
+    -fx-background-color: black, darkorange;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+.grade2 {
+    -fx-background-color: black, darkred;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+.grade1 {
+    -fx-background-color: black, red;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+.subject {
+    -fx-background-color: black, white;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+.container {
+    -fx-background-color: white;
+}

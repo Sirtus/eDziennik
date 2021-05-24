@@ -22,6 +22,10 @@ public class Grade {
     public Grade() {
     }
 
+    public Grade(int mark) {
+        this.mark = mark;
+    }
+
     public Grade(int mark, Subject subject, Student student, Teacher teacher) {
         this.mark = mark;
         this.updateStudent(student);

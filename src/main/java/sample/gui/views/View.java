@@ -1,6 +1,11 @@
 package sample.gui.views;
 
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 
 public abstract class View {
     protected ViewSwitcher viewSwitcher;
@@ -15,4 +20,27 @@ public abstract class View {
 
     public abstract void popContext();
 
+    protected ColumnConstraints getColumnConstraintForSize(double size) {
+        ColumnConstraints column = new ColumnConstraints();
+
+        column.setMaxWidth(size);
+        column.setMinWidth(size);
+        column.setPrefWidth(size);
+        column.setHgrow(Priority.ALWAYS);
+
+        column.setHalignment(HPos.CENTER);
+        return column;
+    }
+
+    protected RowConstraints getGradeRowConstraintForSize(double size) {
+        RowConstraints row = new RowConstraints();
+
+        row.setMaxHeight(size);
+        row.setMinHeight(size);
+        row.setPrefHeight(size);
+        row.setVgrow(Priority.ALWAYS);
+
+        row.setValignment(VPos.CENTER);
+        return row;
+    }
 }

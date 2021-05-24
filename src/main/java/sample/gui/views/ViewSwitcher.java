@@ -38,7 +38,9 @@ public class ViewSwitcher {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(type.toString()));
                 loader.load();
-                possibleViewsMap.put(type, loader.getController());
+                View view = loader.getController();
+                view.setViewSwitcher(this);
+                possibleViewsMap.put(type, view);
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -52,6 +54,7 @@ public class ViewSwitcher {
         if (currentView != null) currentView.popContext();
         this.currentView = newView;
         this.currentView.setViewSwitcher(this);
+        newView.refresh();
     }
 
     public Student getCurrentStudentContext() {
@@ -102,12 +105,19 @@ public class ViewSwitcher {
         teacherContext.pop();
     }
 
+    public DatabaseCommunicator getCommunicator() {
+        return communicator;
+    }
+
     public void setLoginError(String loginError){ this.loginError = loginError; }
 
     public String getLoginError() { return this.loginError; }
 
     public void signIn(String login, String password, Login type){
         userId = this.communicator.signIn(login, password, type);
-        if(this.communicator.getUserType() == Login.STUDENT) this.setCurrentView(ViewTypes.STUDENT_GRADES);
+        if(this.communicator.getUserType() == Login.STUDENT) {
+            studentContext.add(communicator.getStudentByID(userId));
+            this.setCurrentView(ViewTypes.STUDENT_GRADES);
+        }
     }
 }
