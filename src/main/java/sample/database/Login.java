@@ -18,7 +18,6 @@ public enum Login {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Person> q = cb.createQuery(Person.class);
         Root<Person> c = q.from(Person.class);
-        ParameterExpression<Integer> p = cb.parameter(Integer.class);
         q.select(c).where(cb.equal(c.get("login"), login));
 
         TypedQuery<Person> query = session.createQuery(q);
