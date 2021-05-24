@@ -15,7 +15,6 @@ public class ViewSwitcher {
     private final MainLayoutController mainLayoutController;
     private final EnumMap<ViewTypes, View> possibleViewsMap;
     private View currentView;
-    private String loginError;
     private int userId;
     private final DatabaseCommunicator communicator;
 
@@ -25,8 +24,8 @@ public class ViewSwitcher {
     private final LinkedList<Subject> subjectContext;
 
 
-    public ViewSwitcher(MainLayoutController mainLayoutController, EntityManager session) {
-        communicator = new DatabaseCommunicator(session);
+    public ViewSwitcher(MainLayoutController mainLayoutController, DatabaseCommunicator communicator) {
+        this.communicator = communicator;
         this.mainLayoutController = mainLayoutController;
         this.possibleViewsMap = new EnumMap<>(ViewTypes.class);
         this.studentContext = new LinkedList<>();
@@ -53,7 +52,6 @@ public class ViewSwitcher {
         mainLayoutController.setCurrentView(newView);
         if (currentView != null) currentView.popContext();
         this.currentView = newView;
-        this.currentView.setViewSwitcher(this);
         newView.refresh();
     }
 
@@ -109,15 +107,4 @@ public class ViewSwitcher {
         return communicator;
     }
 
-    public void setLoginError(String loginError){ this.loginError = loginError; }
-
-    public String getLoginError() { return this.loginError; }
-
-    public void signIn(String login, String password, Login type){
-        userId = this.communicator.signIn(login, password, type);
-        if(this.communicator.getUserType() == Login.STUDENT) {
-            studentContext.add(communicator.getStudentByID(userId));
-            this.setCurrentView(ViewTypes.STUDENT_GRADES);
-        }
-    }
 }

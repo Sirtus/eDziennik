@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import sample.database.*;
 import sample.databaseCommunication.DatabaseCommunicator;
+import sample.gui.GUIInitializer;
 import sample.gui.MainLayoutController;
 import sample.gui.views.ViewSwitcher;
 import sample.gui.views.ViewTypes;
@@ -17,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,40 +26,20 @@ import java.util.Set;
 
 public class Main extends Application {
 
-    public static final double WINDOW_HEIGHT = 650;
-    public static final double WINDOW_WIDTH = 900;
+    private static DatabaseCommunicator communicator;
 
 
     public static void main(String[] args) {
         EntityManager session = getSession();
-        DatabaseCommunicator db = new DatabaseCommunicator(session);
+        communicator = new DatabaseCommunicator(session);
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         addSampleData();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/mainLayout.fxml"));
-        Parent root = loader.load();
-        root.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
-
-        MainLayoutController mainLayoutController = loader.getController();
-        ViewSwitcher viewSwitcher = new ViewSwitcher(mainLayoutController, getSession());
-        viewSwitcher.setCurrentView(ViewTypes.LOGIN); // tu bedzie logowanie
-
-
-        primaryStage.setTitle("eDziennik");
-        primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
-        primaryStage.setResizable(false);
-        primaryStage.setOnCloseRequest(
-                (WindowEvent t) -> {
-                    Platform.exit();
-                    System.exit(0);
-                }
-        );
-        primaryStage.show();
+        GUIInitializer initializer = new GUIInitializer(primaryStage, communicator);
+        initializer.startLogin();
     }
 
     private static void addSampleData() {

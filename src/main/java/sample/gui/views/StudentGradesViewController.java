@@ -34,12 +34,13 @@ public class StudentGradesViewController extends View {
         List<Pair<Subject, ArrayList<Grade>>> contents = new ArrayList<>();
         contents.add(new Pair<>(new Subject("dupa"),
                 new ArrayList<>(List.of(
-                        new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6),
-                        new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6),
                     new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6),
                     new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6),
                     new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6),
-                    new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6)))));
+                    new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6),
+                    new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6),
+                    new Grade(1), new Grade(2), new Grade(3), new Grade(4), new Grade(5), new Grade(6))
+                )));
 //        List<Pair<Subject, ArrayList<Grade>>> contents = viewSwitcher.getCommunicator().getStudentGrades(student.getID());
         int gradeColumns = contents.stream().map(Pair::getValue).mapToInt(List::size).max().orElseThrow();
         resetGrid(gradeColumns);
