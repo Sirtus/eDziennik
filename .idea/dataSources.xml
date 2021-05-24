@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="jdbc:derby://127.0.0.1/eDziennik" uuid="0e68abf9-5c75-43d4-ad14-2624c1afbe30">
+    <data-source source="LOCAL" name="eDziennik@127.0.0.1" uuid="bc88ec67-e80a-4ada-aa25-703e96bf79fc">
       <driver-ref>derby.remote</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
-      <jdbc-url>jdbc:derby://127.0.0.1/eDziennik</jdbc-url>
+      <jdbc-url>jdbc:derby://127.0.0.1:1527/eDziennik</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
 </project>

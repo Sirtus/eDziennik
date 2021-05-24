@@ -26,7 +26,7 @@ public abstract class Person {
         this.pesel = pesel;
         this.birthdate = birthdate;
         this.login = login;
-        this.password = password;
+        this.password = Login.hashPassword(password);
     }
 
     public String getFirstname() {
@@ -50,7 +50,7 @@ public abstract class Person {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Login.hashPassword(password);
     }
 
     public int getID() {

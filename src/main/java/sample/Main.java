@@ -24,13 +24,13 @@ import java.util.Set;
 public class Main extends Application {
 
     public static void main(String[] args) {
+        EntityManager session = getSession();
+        addSampleData();
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        addSampleData();
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/mainLayout.fxml"));
         System.out.println("main: " + getClass().getResource("/mainLayout.fxml").toString());
@@ -52,14 +52,14 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private void addSampleData() {
+    private static void addSampleData() {
         EntityManager session =  getSession();
 
         //example data
 
-        Person t1 = new Teacher( "Arkadiusz", "Trawa", "012312453453", new Date(), "mgr", "AT123", "fushoug");
+        Person t1 = new Teacher( "Arkadiusz", "Trawa", "012312453453", new Date(), "mgr", "AT123", "siemasiema");
         SchoolClass sc1 = new SchoolClass(2, 3, "c", (Teacher) t1);
-        Person s1 = new Student( "Patryk", "Woda", "01234533453", new Date(), sc1,"PW123", "ieufwe");
+        Person s1 = new Student( "Patryk", "Woda", "01234533453", new Date(), sc1,"PW123", "siemasiema21");
 
         Set<Teacher> teachers = new HashSet<>();
         teachers.add((Teacher) t1);
@@ -78,7 +78,7 @@ public class Main extends Application {
             session.persist(sub1);
             etx.commit();
         } finally {
-            session.close();
+            //session.close();
         }
     }
 
