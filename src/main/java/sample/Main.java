@@ -1,10 +1,16 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import sample.database.*;
+import sample.gui.MainLayoutController;
+import sample.gui.views.ViewSwitcher;
+import sample.gui.views.ViewTypes;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,8 +23,36 @@ import java.util.Set;
 
 public class Main extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
+        addSampleData();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/mainLayout.fxml"));
+        System.out.println("main: " + getClass().getResource("/mainLayout.fxml").toString());
+        Parent root = loader.load();
+        MainLayoutController mainLayoutController = loader.getController();
+        ViewSwitcher viewSwitcher = new ViewSwitcher(mainLayoutController);
+        viewSwitcher.setCurrentView(ViewTypes.STUDENT_GRADES); // tu bedzie logowanie
+
+
+        primaryStage.setTitle("eDziennik");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(
+                (WindowEvent t) -> {
+                    Platform.exit();
+                    System.exit(0);
+                }
+        );
+        primaryStage.show();
+    }
+
+    private void addSampleData() {
         EntityManager session =  getSession();
 
         //example data
@@ -46,14 +80,8 @@ public class Main extends Application {
         } finally {
             session.close();
         }
-
-
-
-        Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
     }
+
     private static final EntityManagerFactory ourSessionFactory =
             Persistence.createEntityManagerFactory("myDatabaseConfig");
 
@@ -62,10 +90,5 @@ public class Main extends Application {
         EntityManagerFactory emf = Persistence.
                 createEntityManagerFactory("myDatabaseConfig");
         return ourSessionFactory.createEntityManager();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

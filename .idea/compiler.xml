@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="eDziennik" target="11" />
+      <module name="eDziennik" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>

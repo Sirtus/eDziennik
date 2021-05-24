@@ -1,6 +1,9 @@
-package sample;
+package sample.database;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
