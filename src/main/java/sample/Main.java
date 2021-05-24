@@ -36,8 +36,8 @@ public class Main extends Application {
         System.out.println("main: " + getClass().getResource("/mainLayout.fxml").toString());
         Parent root = loader.load();
         MainLayoutController mainLayoutController = loader.getController();
-        ViewSwitcher viewSwitcher = new ViewSwitcher(mainLayoutController);
-        viewSwitcher.setCurrentView(ViewTypes.STUDENT_GRADES); // tu bedzie logowanie
+        ViewSwitcher viewSwitcher = new ViewSwitcher(mainLayoutController, getSession());
+        viewSwitcher.setCurrentView(ViewTypes.LOGIN); // tu bedzie logowanie
 
 
         primaryStage.setTitle("eDziennik");
@@ -54,12 +54,11 @@ public class Main extends Application {
 
     private static void addSampleData() {
         EntityManager session =  getSession();
-
         //example data
 
         Person t1 = new Teacher( "Arkadiusz", "Trawa", "012312453453", new Date(), "mgr", "AT123", "siemasiema");
         SchoolClass sc1 = new SchoolClass(2, 3, "c", (Teacher) t1);
-        Person s1 = new Student( "Patryk", "Woda", "01234533453", new Date(), sc1,"PW123", "siemasiema21");
+        Person s1 = new Student( "Patryk", "Woda", "01234533453", new Date(), sc1,"PW120", "siemasiema21");
 
         Set<Teacher> teachers = new HashSet<>();
         teachers.add((Teacher) t1);

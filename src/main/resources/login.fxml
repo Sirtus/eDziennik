@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: aliceblue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.views.LoginController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="356.80003662109374" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.20001220703125" minWidth="0.0" prefWidth="32.79996337890623" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.3999633789063" minWidth="10.0" prefWidth="210.3999633789063" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="94.39999618530274" minHeight="10.0" prefHeight="76.79999008178712" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="85.19998779296876" minHeight="2.400003814697257" prefHeight="48.40000610351562" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="135.20001220703125" minHeight="10.0" prefHeight="51.399993896484375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="192.8000061035156" minHeight="10.0" prefHeight="64.39996337890628" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="156.4000305175781" minHeight="10.0" prefHeight="150.00003662109373" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <opaqueInsets>
+      <Insets bottom="50.0" left="1500.0" right="50.0" top="50.0" />
+   </opaqueInsets>
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <children>
+            <TextField id="login" fx:id="login" alignment="BOTTOM_LEFT" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <PasswordField fx:id="password" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <RadioButton fx:id="studentRadio" mnemonicParsing="false" text="uczeń">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="group" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="teacherRadio" mnemonicParsing="false" text="nauczyciel" toggleGroup="$group" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+         <children>
+            <Label text="Podaj login:">
+               <opaqueInsets>
+                  <Insets left="50.0" />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+         <children>
+            <Label text="Podaj hasło:">
+               <opaqueInsets>
+                  <Insets left="50.0" />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+         <children>
+            <Label text="Zaloguj jako:">
+               <opaqueInsets>
+                  <Insets left="50.0" />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="80.0" prefWidth="370.0">
+         <children>
+            <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="415.0" text="LOGOWANIE - eDziennik" textAlignment="RIGHT">
+               <font>
+                  <Font name="Verdana" size="24.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets left="50.0" />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+         <children>
+            <Button id="button" fx:id="button" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signIn" text="Zaloguj">
+               <opaqueInsets>
+                  <Insets left="50.0" />
+               </opaqueInsets>
+            </Button>
+         </children>
+      </HBox>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <children>
+            <Label fx:id="errorText" textFill="RED" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</GridPane>

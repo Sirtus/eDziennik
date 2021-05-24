@@ -1,5 +1,7 @@
 package sample.database;
 
+import sample.databaseCommunication.Login;
+
 import javax.persistence.*;
 import java.util.Date;
 

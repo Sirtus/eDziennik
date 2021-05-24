@@ -1,12 +1,12 @@
 package sample.gui.views;
 
 import javafx.fxml.FXMLLoader;
-import sample.database.SchoolClass;
-import sample.database.Student;
-import sample.database.Subject;
-import sample.database.Teacher;
+import sample.database.*;
+import sample.databaseCommunication.DatabaseCommunicator;
+import sample.databaseCommunication.Login;
 import sample.gui.MainLayoutController;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.LinkedList;
@@ -15,6 +15,9 @@ public class ViewSwitcher {
     private final MainLayoutController mainLayoutController;
     private final EnumMap<ViewTypes, View> possibleViewsMap;
     private View currentView;
+    private String loginError;
+    private int userId;
+    private final DatabaseCommunicator communicator;
 
     private final LinkedList<Student> studentContext;
     private final LinkedList<SchoolClass> classContext;
@@ -22,7 +25,8 @@ public class ViewSwitcher {
     private final LinkedList<Subject> subjectContext;
 
 
-    public ViewSwitcher(MainLayoutController mainLayoutController) {
+    public ViewSwitcher(MainLayoutController mainLayoutController, EntityManager session) {
+        communicator = new DatabaseCommunicator(session);
         this.mainLayoutController = mainLayoutController;
         this.possibleViewsMap = new EnumMap<>(ViewTypes.class);
         this.studentContext = new LinkedList<>();
@@ -47,6 +51,7 @@ public class ViewSwitcher {
         mainLayoutController.setCurrentView(newView);
         if (currentView != null) currentView.popContext();
         this.currentView = newView;
+        this.currentView.setViewSwitcher(this);
     }
 
     public Student getCurrentStudentContext() {
@@ -97,4 +102,12 @@ public class ViewSwitcher {
         teacherContext.pop();
     }
 
+    public void setLoginError(String loginError){ this.loginError = loginError; }
+
+    public String getLoginError() { return this.loginError; }
+
+    public void signIn(String login, String password, Login type){
+        userId = this.communicator.signIn(login, password, type);
+        if(this.communicator.getUserType() == Login.STUDENT) this.setCurrentView(ViewTypes.STUDENT_GRADES);
+    }
 }

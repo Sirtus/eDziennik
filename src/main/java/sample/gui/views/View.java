@@ -14,4 +14,5 @@ public abstract class View {
     public abstract void refresh();
 
     public abstract void popContext();
+
 }

@@ -1,12 +1,15 @@
-package sample.database;
+package sample.databaseCommunication;
 
 import org.mindrot.jbcrypt.BCrypt;
+import sample.database.Person;
+import sample.database.Student;
+import sample.database.Teacher;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +35,7 @@ public enum Login {
 
     public static int login(EntityManager session, String login, String password, Login type){
         Person personWithLogin = findByLogin(session, login);
-
+        System.out.println(login +" "+ password);
         if(personWithLogin != null){
             Teacher teacher = session.find(Teacher.class, personWithLogin.getID());
             Student student = session.find(Student.class, personWithLogin.getID());
@@ -51,9 +54,12 @@ public enum Login {
     }
 
     public static String hashPassword(String password){
+        System.out.println(BCrypt.hashpw(password, BCrypt.gensalt(12)));
         return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
     private boolean checkPassword(String password, String hashed){
+        System.out.println(password);
+        System.out.println(hashed);
         return BCrypt.checkpw(password, hashed);
     }
 
