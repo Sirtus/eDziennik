@@ -99,6 +99,19 @@ public class DatabaseCommunicator {
         return result;
 
     }
+    public Set<SchoolClass> getClassesListByTeacherAndSubject(int teacherID, int subjectID){
+        Teacher teacher = session.find(Teacher.class, teacherID);
+        if(teacher == null){
+            return null;
+        }
+        Set<Subject> teacherSubjects = teacher.getSubjects();
+        for(Subject s: teacherSubjects){
+            if(s.getID() == subjectID){
+                return s.getClasses();
+            }
+        }
+        return null;
+    }
 
 
 }
