@@ -1,6 +1,7 @@
 package sample.gui.views;
 
 import javafx.fxml.FXMLLoader;
+import javafx.util.Pair;
 import sample.database.*;
 import sample.databaseCommunication.DatabaseCommunicator;
 import sample.databaseCommunication.Login;
@@ -8,8 +9,10 @@ import sample.gui.MainLayoutController;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ViewSwitcher {
     private final MainLayoutController mainLayoutController;
@@ -104,6 +107,10 @@ public class ViewSwitcher {
 
     public DatabaseCommunicator getCommunicator() {
         return communicator;
+    }
+
+    public List<Pair<Subject, ArrayList<Grade>>> getGradesForStudent(Student student) {
+        return communicator.getStudentGrades(student.getID());
     }
 
 }
