@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class Teacher extends Person {
     public Teacher() {
     }
 
-    public Teacher(String firstname, String lastname, String pesel, Date birthdate, String title, String login, String password) {
+    public Teacher(String firstname, String lastname, String pesel, LocalDate birthdate, String title, String login, String password) {
         super(firstname, lastname, pesel, birthdate, login, password);
         this.title = title;
     }

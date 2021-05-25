@@ -40,9 +40,6 @@ public class DatabaseCommunicator {
         return user;
     }
 
-    //UWAGA
-    //2 ostatnie funkcje jeszcze nie przetestowane
-
     public List<Student> getStudentsListBySchoolClass(int schoolClassID){
         CriteriaBuilder cb = this.session.getCriteriaBuilder();
         CriteriaQuery<Student> q = cb.createQuery(Student.class);

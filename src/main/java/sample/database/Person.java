@@ -3,6 +3,7 @@ package sample.database;
 import sample.databaseCommunication.Login;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,14 +16,14 @@ public abstract class Person {
     private String firstname;
     private String lastname;
     private String pesel;
-    private Date birthdate;
+    private LocalDate birthdate;
     private String login;
     private String password;
 
     public Person() {
     }
 
-    public Person(String firstname, String lastname, String pesel, Date birthdate, String login, String password) {
+    public Person(String firstname, String lastname, String pesel, LocalDate birthdate, String login, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.pesel = pesel;
@@ -75,11 +76,11 @@ public abstract class Person {
         this.pesel = pesel;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

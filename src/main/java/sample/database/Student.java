@@ -1,5 +1,6 @@
 package sample.database;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class Student extends Person {
     public Student() {
     }
 
-    public Student(String firstname, String lastname, String pesel, Date birthdate, SchoolClass myClass, String login, String password) {
+    public Student(String firstname, String lastname, String pesel, LocalDate birthdate, SchoolClass myClass, String login, String password) {
         super(firstname, lastname, pesel, birthdate, login, password);
         this.updateMyClass(myClass);
     }

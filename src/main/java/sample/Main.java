@@ -7,8 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Pair;
 import sample.database.*;
 import sample.databaseCommunication.DatabaseCommunicator;
+import sample.databaseCommunication.Login;
 import sample.gui.GUIInitializer;
 import sample.gui.MainLayoutController;
 import sample.gui.views.ViewSwitcher;
@@ -19,9 +21,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 
 public class Main extends Application {
@@ -37,39 +38,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        addSampleData();
+        //addSampleData();
         GUIInitializer initializer = new GUIInitializer(primaryStage, communicator);
         initializer.startLogin();
     }
 
-    private static void addSampleData() {
-        EntityManager session =  getSession();
-        //example data
 
-        Person t1 = new Teacher( "Arkadiusz", "Trawa", "012312453453", new Date(), "mgr", "AT123", "siemasiema");
-        SchoolClass sc1 = new SchoolClass(2, 3, "c", (Teacher) t1);
-        Person s1 = new Student( "Patryk", "Woda", "01234533453", new Date(), sc1,"PW120", "siemasiema21");
-
-        Set<Teacher> teachers = new HashSet<>();
-        teachers.add((Teacher) t1);
-
-        Set<SchoolClass> schoolClasses = new HashSet<>();
-        schoolClasses.add(sc1);
-
-        Subject sub1 = new Subject("Fizyka", teachers, schoolClasses);
-
-        EntityTransaction etx = session.getTransaction();
-        try {
-            etx.begin();
-            session.persist(t1);
-            session.persist(sc1);
-            session.persist(s1);
-            session.persist(sub1);
-            etx.commit();
-        } finally {
-            session.close();
-        }
-    }
 
     private static final EntityManagerFactory ourSessionFactory =
             Persistence.createEntityManagerFactory("myDatabaseConfig");
