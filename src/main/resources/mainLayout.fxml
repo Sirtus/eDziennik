@@ -8,12 +8,13 @@
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="900.0" style="-fx-background-color: yellow;">
          <children>
-            <Label alignment="CENTER" layoutX="336.0" layoutY="28.0" prefHeight="45.0" prefWidth="228.0" style="-fx-font-weight: bold;" text="Witaj, nazwa" textAlignment="CENTER">
+            <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="91.0" layoutY="28.0" prefHeight="45.0" prefWidth="718.0" style="-fx-font-weight: bold;" text="Witaj, nazwa" textAlignment="CENTER">
                <font>
                   <Font size="27.0" />
                </font>
             </Label>
             <Button fx:id="backButton" layoutX="42.0" layoutY="39.0" mnemonicParsing="false" onAction="#backButtonAction" text="Wstecz" />
+            <Button fx:id="logoutButton" layoutX="782.0" layoutY="39.0" mnemonicParsing="false" onAction="#logoutButtonAction" text="Wyloguj" />
          </children>
       </AnchorPane>
       <StackPane fx:id="viewContainer" layoutY="100.0" maxHeight="550.0" maxWidth="900.0" />

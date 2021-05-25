@@ -82,4 +82,8 @@ public abstract class Person {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
+
+    public String getFullName() {
+        return firstname + " " + lastname;
+    }
 }

@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import sample.Main;
+import sample.database.Student;
+import sample.database.Teacher;
 import sample.databaseCommunication.DatabaseCommunicator;
 import sample.databaseCommunication.Login;
 import sample.gui.views.ViewSwitcher;
@@ -19,8 +21,8 @@ public class GUIInitializer {
     public static final double WINDOW_HEIGHT = 650;
     public static final double WINDOW_WIDTH = 900;
 
-    private Stage primaryStage;
-    private DatabaseCommunicator communicator;
+    private final Stage primaryStage;
+    private final DatabaseCommunicator communicator;
 
     public GUIInitializer(Stage primaryStage, DatabaseCommunicator communicator) {
         this.communicator = communicator;
@@ -35,14 +37,19 @@ public class GUIInitializer {
         );
     }
 
-    public void startLogin() throws Exception {
+    public void startLogin() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/login.fxml"));
-        Parent root = loader.load();
-        LoginController controller = loader.getController();
-        controller.setInitializer(this);
-        controller.setCommunicator(communicator);
-        primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
+        try {
+            Parent root = loader.load();
+            LoginController controller = loader.getController();
+            controller.setInitializer(this);
+            controller.setCommunicator(communicator);
+            primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
         primaryStage.show();
     }
 
@@ -58,15 +65,22 @@ public class GUIInitializer {
             e.printStackTrace();
         }
         MainLayoutController mainLayoutController = loader.getController();
+        mainLayoutController.setCommunicator(communicator);
+        mainLayoutController.setInitializer(this);
         ViewSwitcher viewSwitcher = new ViewSwitcher(mainLayoutController, communicator);
 
         switch (communicator.getUserType()) {
-            case STUDENT:
-                viewSwitcher.addToContext(communicator.getStudentByID(userID));
+            case STUDENT -> {
+                viewSwitcher.addToContext((Student) communicator.getUser());
                 viewSwitcher.setCurrentView(ViewTypes.STUDENT_GRADES);
-                break;
-            case TEACHER:
-                break;
+            }
+            case TEACHER -> {
+                // to jest tymczasowe, potem będzie widok dla nauczyciela w którym on sobie wybiera między uczonymi przedmiotami a wychowywaną klasą.
+                Teacher temp = (Teacher) communicator.getUser();
+                viewSwitcher.addToContext(temp);
+                viewSwitcher.addToContext(temp.getMyClass());
+                viewSwitcher.setCurrentView(ViewTypes.CLASS_TUTOR);
+            }
         }
         primaryStage.show();
     }

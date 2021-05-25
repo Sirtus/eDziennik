@@ -50,7 +50,6 @@ public class ViewSwitcher {
     public void setCurrentView(ViewTypes type) {
         View newView = possibleViewsMap.get(type);
         mainLayoutController.setCurrentView(newView);
-        if (currentView != null) currentView.popContext();
         this.currentView = newView;
         newView.refresh();
     }
@@ -88,19 +87,19 @@ public class ViewSwitcher {
     }
 
     public void popStudent() {
-        studentContext.pop();
+        studentContext.removeLast();
     }
 
     public void popSubject() {
-        subjectContext.pop();
+        subjectContext.removeLast();
     }
 
     public void popSchoolClass() {
-        classContext.pop();
+        classContext.removeLast();
     }
 
     public void popTeacher() {
-        teacherContext.pop();
+        teacherContext.removeLast();
     }
 
     public DatabaseCommunicator getCommunicator() {

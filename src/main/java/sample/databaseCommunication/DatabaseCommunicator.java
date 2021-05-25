@@ -28,11 +28,16 @@ public class DatabaseCommunicator {
         userId = Login.login(session, login, password, type);
         if(userId != -1) this.login = type;
         System.out.println(userId);
+        user = session.find(Person.class, userId);
         return userId;
     }
 
     public Login getUserType(){
         return login;
+    }
+
+    public Person getUser() {
+        return user;
     }
 
     //UWAGA
@@ -50,19 +55,10 @@ public class DatabaseCommunicator {
 
     public Set<Subject> getTeacherSubjectsList(int teacherID){
         Teacher teacher = session.find(Teacher.class, teacherID);
-        if(teacher != null){
+        if(teacher != null) {
             return teacher.getSubjects();
-
         }
         return null;
-    }
-
-    public Student getStudentByID(int id) {
-        return session.find(Student.class, id);
-    }
-
-    public Teacher getTeacherByID(int id) {
-        return session.find(Teacher.class, id);
     }
 
     public List<Pair<Subject, ArrayList<Grade>>> getStudentGrades(int studentID){
@@ -84,7 +80,7 @@ public class DatabaseCommunicator {
                     break;
                 }
             }
-            if(subjectOnList != true){
+            if(!subjectOnList) {
                 ArrayList<Grade> grades = new ArrayList<>();
                 grades.add(grade);
                 result.add(new Pair<>(grade.getSubject(), grades));
@@ -93,7 +89,7 @@ public class DatabaseCommunicator {
 
         return result;
     }
-    public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass(int schoolClassID){
+    public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass(int schoolClassID) {
         SchoolClass schoolClass = session.find(SchoolClass.class, schoolClassID);
         if(schoolClass == null){
             return null;

@@ -5,9 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import sample.databaseCommunication.DatabaseCommunicator;
 import sample.databaseCommunication.Login;
@@ -28,13 +31,21 @@ public class LoginController {
     private RadioButton teacherRadio;
     @FXML
     private Label errorText;
+    @FXML
+    private Button loginButton;
 
     private DatabaseCommunicator communicator;
 
     private GUIInitializer initializer;
 
     public void initialize() {
-
+        root.addEventHandler(KeyEvent.KEY_PRESSED, (keyEvent) -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                loginButton.fire();
+                keyEvent.consume();
+            }
+        });
+        studentRadio.setSelected(true);
     }
 
     public void setCommunicator(DatabaseCommunicator communicator) {
