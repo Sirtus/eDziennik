@@ -1,20 +1,20 @@
 package sample.gui.views;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import sample.database.*;
 import sample.databaseCommunication.DatabaseCommunicator;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TeacherViewController extends View{
 
@@ -44,7 +44,7 @@ public class TeacherViewController extends View{
     public void initialize(){
         firstname.setCellValueFactory(new PropertyValueFactory<TableStudent, String>("firstname"));
         lastname.setCellValueFactory(new PropertyValueFactory<TableStudent, String>("lastname"));
-        grades.setCellValueFactory(new PropertyValueFactory<TableStudent, ArrayList<Integer>>("grades"));
+        grades.setCellValueFactory(new PropertyValueFactory<TableStudent, HBox>("gradesBox"));
         add.setCellValueFactory(new PropertyValueFactory<TableStudent, Button>("button"));
     }
 
@@ -55,7 +55,7 @@ public class TeacherViewController extends View{
 
     @Override
     public void refresh() {
-        classButton.setText("Klasa");
+        classButton.getItems().clear();
         studentsTable.getItems().clear();
         DatabaseCommunicator communicator = viewSwitcher.getCommunicator();
         classSet = communicator.getClassesListByTeacherAndSubject(viewSwitcher.getCurrentTeacherContext().getID(),
@@ -78,6 +78,8 @@ public class TeacherViewController extends View{
 
     @Override
     public void popContext() {
+
+        classButton.setText("Klasa");
         studentsTable.getItems().clear();
     }
 
@@ -106,12 +108,15 @@ public class TeacherViewController extends View{
     public class TableStudent{
         private String firstname;
         private String lastname;
-        private ArrayList<Integer> grades;
+        private ArrayList<Button> grades;
+        private HBox gradesBox;
         private Student student;
         private Button button;
+        private final String[] possibleGrades = {"1", "2", "3", "4", "5", "6"};
 
         public TableStudent(Student student,  ArrayList<Grade> grades){
             this.student = student;
+            this.gradesBox = new HBox();
             this.firstname = student.getFirstname();
             this.lastname = student.getLastname();
             this.button = new Button();
@@ -120,12 +125,81 @@ public class TeacherViewController extends View{
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     System.out.println(firstname + " " + lastname);
+                    TextInputDialog addGradeDialog = new TextInputDialog();
+                    addGradeDialog.setTitle("Dodawanie ocen");
+                    addGradeDialog.setHeaderText("Dodajesz ocenę " + firstname + " " + lastname);
+
+                    Button okButton = (Button) addGradeDialog.getDialogPane().lookupButton(ButtonType.OK);
+                    TextField inputField = addGradeDialog.getEditor();
+                    BooleanBinding isInvalid = Bindings.createBooleanBinding(() -> isInvalid(inputField.getText()), inputField.textProperty());
+                    okButton.disableProperty().bind(isInvalid);
+
+                    Optional<String> result = addGradeDialog.showAndWait();
+                    result.ifPresent(str -> addGrade(str));
                 }
             });
             this.grades = new ArrayList<>();
             for(Grade g: grades) {
-                this.grades.add(g.getMark());
+                Button gradeButton = new Button();
+                gradeButton.setText(Integer.toString(g.getMark()));
+                gradeButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        TextInputDialog editGradeDialog = new TextInputDialog();
+                        ButtonType editButton = new ButtonType("Edytuj");
+                        ButtonType deleteButton = new ButtonType("Usuń");
+                        ButtonType cancelButton = new ButtonType("Anuluj", ButtonBar.ButtonData.CANCEL_CLOSE);
+                        editGradeDialog.getDialogPane().getButtonTypes().clear();
+                        editGradeDialog.getDialogPane().getButtonTypes().addAll(editButton, deleteButton, cancelButton);
+                        editGradeDialog.setTitle("Edytowanie ocen");
+                        editGradeDialog.setHeaderText("Edytujesz ocenę " + firstname + " " + lastname);
+                        editGradeDialog.setContentText("Ocena: " + gradeButton.getText());
+
+
+                        editGradeDialog.setResultConverter(dialogButton ->{
+                            if(dialogButton == editButton){
+                                return editGradeDialog.getEditor().getText();
+                            }
+                            else if(dialogButton == deleteButton){
+                                deleteGrade(g);
+                            }
+                            return null;
+                        });
+
+                        Optional<String> result = editGradeDialog.showAndWait();
+                        result.ifPresent(str -> editGrade(str, g));
+                    }
+                });
+                this.grades.add(gradeButton);
+                this.gradesBox.getChildren().add(gradeButton);
+                System.out.println(firstname + " " + g.getMark() + " " + g.getID());
             }
+        }
+
+        private boolean isInvalid(String gradeText){
+            for(String s: possibleGrades){
+                if(gradeText.equals(s)) return false;
+            }
+            return true;
+        }
+
+        private void addGrade(String gradeStr) {
+            Grade gradeToInsert = new Grade(Integer.parseInt(gradeStr),viewSwitcher.getCurrentSubjectContext(),
+                    student, viewSwitcher.getCurrentTeacherContext() );
+
+            viewSwitcher.getCommunicator().insertGradeToDataBase(gradeToInsert);
+            viewSwitcher.setCurrentView(ViewTypes.TEACHER_VIEW);
+        }
+
+        private void editGrade(String gradeStr, Grade grade){
+
+            viewSwitcher.getCommunicator().editGrade(grade, Integer.parseInt(gradeStr));
+            viewSwitcher.setCurrentView(ViewTypes.TEACHER_VIEW);
+        }
+
+        private void deleteGrade(Grade grade){
+            viewSwitcher.getCommunicator().deleteGrade(grade);
+            viewSwitcher.setCurrentView(ViewTypes.TEACHER_VIEW);
         }
 
         public String getFirstname() {
@@ -140,13 +214,16 @@ public class TeacherViewController extends View{
             return lastname;
         }
 
-        public ArrayList<Integer> getGrades() {
+        public ArrayList<Button> getGrades() {
             return grades;
         }
 
         public Button getButton() {
             return button;
         }
+
+        public HBox getGradesBox(){ return  gradesBox; }
     }
+
 }
 

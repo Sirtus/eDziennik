@@ -99,6 +99,8 @@ public class DatabaseCommunicator {
         return result;
 
     }
+
+
     public Set<SchoolClass> getClassesListByTeacherAndSubject(int teacherID, int subjectID){
         Teacher teacher = session.find(Teacher.class, teacherID);
         if(teacher == null){
@@ -114,4 +116,24 @@ public class DatabaseCommunicator {
     }
 
 
+    public void insertGradeToDataBase(Grade grade){
+        System.out.println(grade.getID());
+        session.getTransaction().begin();
+        session.persist(grade);
+        session.getTransaction().commit();
+    }
+
+    public void editGrade(Grade grade, int newGrade){
+        session.getTransaction().begin();
+        grade.setMark(newGrade);
+        session.getTransaction().commit();
+    }
+
+    public void deleteGrade(Grade grade){
+        Grade g = session.find(Grade.class, grade.getID());
+        System.out.println(g.getID());
+        session.getTransaction().begin();
+        session.remove(g);
+        session.getTransaction().commit();
+    }
 }

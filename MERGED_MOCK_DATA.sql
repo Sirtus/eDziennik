@@ -1388,6 +1388,9 @@ insert into GRADE (id, mark, student_id, subject_id, teacher_id) values (1000, 1
 insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (1, 2);
 insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (2, 3);
 insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (3, 4);
+insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (3, 5);
+insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (3, 1);
+insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (3, 2);
 insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (4, 5);
 insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (5, 6);
 insert into TEACHER_SUBJECT (teachers_id, subjects_id) values (6, 7);

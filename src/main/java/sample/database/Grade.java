@@ -3,10 +3,11 @@ package sample.database;
 import javax.persistence.*;
 
 @Entity
+@SequenceGenerator(name = "seq", initialValue = 1001, allocationSize = 100)
 public class Grade {
     @Id
     @GeneratedValue(
-            strategy = GenerationType.AUTO)
+            strategy = GenerationType.SEQUENCE, generator = "seq")
     private int ID;
     private int mark;
 
