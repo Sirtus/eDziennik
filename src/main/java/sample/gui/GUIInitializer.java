@@ -79,7 +79,7 @@ public class GUIInitializer {
                 Teacher temp = (Teacher) communicator.getUser();
                 viewSwitcher.addToContext(temp);
                 viewSwitcher.addToContext(temp.getMyClass());
-                viewSwitcher.setCurrentView(ViewTypes.CLASS_TUTOR);
+                viewSwitcher.setCurrentView(ViewTypes.TEACHER_SWITCH);
             }
         }
         primaryStage.show();

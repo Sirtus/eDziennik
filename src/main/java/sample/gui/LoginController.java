@@ -58,10 +58,6 @@ public class LoginController {
 
     @FXML
     private void signIn(ActionEvent event){
-        System.out.println(login.getText());
-        System.out.println(password.getText());
-        if(studentRadio.isSelected()) System.out.println("uczen");
-        else System.out.println("nauczyciel");
 
         Login type = (teacherRadio.isSelected()) ? Login.TEACHER : Login.STUDENT;
         int userID = communicator.signIn(login.getText(), password.getText(), type);
