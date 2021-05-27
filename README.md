@@ -1,8 +1,8 @@
 # eDziennik - Projekt BD2021
 ## Autorzy:
-* Paweł Dymara
-* Tomasz Słonina
-* Konrad Starowiejski
+* Paweł Dymara - [Akatroj](https://github.com/Akatroj)
+* Tomasz Słonina - [Sirtus](https://github.com/Sirtus)
+* Konrad Starowiejski - [konradSt00](https://github.com/konradSt00)
 ## Oryginalna koncepcja:
 W czasach zdalnego nauczania szkoła nie może istnieć bez
 elektornicznego systemu zarządzania, dlatego zdecydowaliśmy 
