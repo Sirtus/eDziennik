@@ -3,6 +3,20 @@
 * Paweł Dymara - [Akatroj](https://github.com/Akatroj)
 * Tomasz Słonina - [Sirtus](https://github.com/Sirtus)
 * Konrad Starowiejski - [konradSt00](https://github.com/konradSt00)
+
+## Jak używać:
+Projekt wykorzystuje Maven do zarządzania zależnościami. Do uruchomienia wystarczy dodać w IntelliJ konfiguracje: 
+```
+mvn compile javafx:run
+```
+Przykładowe konta do zalogowania w aplikacji:
+
+|   Rodzaj   |       Login      |  Hasło   |
+|------------|------------------|----------|
+|   Student  | Maribeth Calvert | haslo123 |
+| Nauczyciel |   Osmund Inder   | haslo123 |
+
+
 ## Oryginalna koncepcja:
 W czasach zdalnego nauczania szkoła nie może istnieć bez
 elektornicznego systemu zarządzania, dlatego zdecydowaliśmy 
