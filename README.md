@@ -9,7 +9,7 @@ Projekt wykorzystuje Maven do zarządzania zależnościami. Do uruchomienia wyst
 ```
 mvn compile javafx:run
 ```
-Do uruchomienia aplikacji potrzebny jest uruchomiony na 127.0.0.1 serwer bazodanowy Apache Derby (nie załączony w repozytorium).
+Przed uruchomieniem aplikacji potrzebny jest serwer bazodanowy Apache Derby na adresie 127.0.0.1  (nie załączony w repozytorium).
 
 W repozytorium znajduje się plik `MERGED_MOCK_DATA.sql` który pozwala wypełnić bazę przykładowymi danymi.
 
