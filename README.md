@@ -9,7 +9,11 @@ Projekt wykorzystuje Maven do zarządzania zależnościami. Do uruchomienia wyst
 ```
 mvn compile javafx:run
 ```
-Przykładowe konta do zalogowania w aplikacji:
+Do uruchomienia aplikacji potrzebny jest uruchomiony na 127.0.0.1 serwer bazodanowy Apache Derby (nie załączony w repozytorium).
+
+W repozytorium znajduje się plik `MERGED_MOCK_DATA.sql` który pozwala wypełnić bazę przykładowymi danymi.
+
+Po wypełnieniu bazy tymi danymi można zalogować się do aplikacji m.in. przez te konta:
 
 |   Rodzaj   |       Login      |  Hasło   |
 |------------|------------------|----------|
@@ -26,10 +30,10 @@ zachowania. Uczniowie będą mieli możliwość sprawdzić szczęśliwy
 numerek, który chroni przed pytaniem "przy tablicy". Aby to 
 wszystko mogło zadziałać kluczową rolę odegrać musi baza danych.
 Wybraliśmy bazę PostgreSQL, a aplikację napiszemy wykorzystując
-język Java oraz framework Hibernate.
+język Java oraz framework Hibernate. GUI wykonamy w JavaFX.
 
 ## Zmiany w stosunku do oryginalnej koncepcji
-* Zamiast PostgreSQL zastosowaliśmy Apache Derby
+* Zamiast PostgreSQL zastosowaliśmy Apache Derby.
 * Zrezygnowaliśmy ze szczęśliwych numerków oraz uwag z zachowania.
 
 ## Co zostało zrobione:
