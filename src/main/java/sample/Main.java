@@ -38,12 +38,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //addSampleData();
         GUIInitializer initializer = new GUIInitializer(primaryStage, communicator);
         initializer.startLogin();
     }
-
-
 
     private static final EntityManagerFactory ourSessionFactory =
             Persistence.createEntityManagerFactory("myDatabaseConfig");

@@ -15,7 +15,7 @@ public class Student extends Person {
     @ManyToOne
     private SchoolClass myClass;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "student", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Grade> grades = new HashSet<>();
 
     public Student() {

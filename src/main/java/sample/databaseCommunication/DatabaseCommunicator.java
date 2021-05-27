@@ -130,10 +130,10 @@ public class DatabaseCommunicator {
     }
 
     public void deleteGrade(Grade grade){
-        Grade g = session.find(Grade.class, grade.getID());
-        System.out.println(g.getID());
+        Student s = grade.getStudent();
         session.getTransaction().begin();
-        session.remove(g);
+        s.getGrades().remove(grade);
+        session.remove(grade);
         session.getTransaction().commit();
     }
 }

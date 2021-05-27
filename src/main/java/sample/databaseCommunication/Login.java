@@ -35,7 +35,6 @@ public enum Login {
 
     public static int login(EntityManager session, String login, String password, Login type){
         Person personWithLogin = findByLogin(session, login);
-        System.out.println(login +" "+ password);
         if(personWithLogin != null){
             Teacher teacher = session.find(Teacher.class, personWithLogin.getID());
             Student student = session.find(Student.class, personWithLogin.getID());
