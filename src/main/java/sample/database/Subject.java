@@ -13,7 +13,7 @@ public class Subject {
     private int ID;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Teacher teacher;
 
     @ManyToMany

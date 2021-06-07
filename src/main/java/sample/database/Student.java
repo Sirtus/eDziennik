@@ -1,4 +1,5 @@
 package sample.database;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
@@ -12,7 +13,7 @@ public class Student extends Person {
             strategy = GenerationType.AUTO)
     private int ID;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private SchoolClass myClass;
 
     @OneToMany(mappedBy = "student", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

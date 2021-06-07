@@ -9,12 +9,14 @@ public class Grade {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE, generator = "seq")
     private int ID;
+
+    @Column(columnDefinition = "integer NOT NULL CHECK (mark BETWEEN 1 AND 6)")
     private int mark;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Subject subject;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Student student;
 
     public Grade() {
