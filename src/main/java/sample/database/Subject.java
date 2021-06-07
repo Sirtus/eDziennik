@@ -13,8 +13,8 @@ public class Subject {
     private int ID;
     private String name;
 
-    @ManyToMany(mappedBy = "subjects")
-    private Set<Teacher> teachers = new HashSet<>();
+    @ManyToOne
+    private Teacher teacher;
 
     @ManyToMany
     private Set<SchoolClass> classes = new HashSet<>();
@@ -64,12 +64,12 @@ public class Subject {
         this.name = name;
     }
 
-    public Set<Teacher> getTeachers() {
-        return teachers;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
     public void setTeacher(Teacher teacher) {
-        this.teachers.add(teacher);
+        this.teacher = teacher;
     }
 
     public Set<SchoolClass> getClasses() {

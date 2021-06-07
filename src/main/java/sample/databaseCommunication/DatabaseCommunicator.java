@@ -66,22 +66,21 @@ public class DatabaseCommunicator {
         }
 
         List<Pair<Subject, ArrayList<Grade>>> result = new ArrayList<>();
-        Set<Grade> studentGrades = student.getGrades();
+        Set<Subject> studentSubjects = student.getMyClass().getSubjects();
+        Set<Grade>  studentGrades = student.getGrades();
         boolean subjectOnList;
-        for(Grade grade: studentGrades){
-            subjectOnList = false;
-            for(Pair<Subject, ArrayList<Grade>> res: result){
-                if(res.getKey().equals(grade.getSubject())){
-                    res.getValue().add(grade);
-                    subjectOnList = true;
-                    break;
+        for(Subject subject: studentSubjects){
+
+            ArrayList<Grade> subjectGrades = new ArrayList<>();
+
+
+            for(Grade grade: studentGrades){
+                if(grade.getSubject().equals(subject)){
+                    subjectGrades.add(grade);
                 }
             }
-            if(!subjectOnList) {
-                ArrayList<Grade> grades = new ArrayList<>();
-                grades.add(grade);
-                result.add(new Pair<>(grade.getSubject(), grades));
-            }
+            result.add(new Pair<>(subject, subjectGrades));
+
         }
 
         return result;
@@ -93,9 +92,11 @@ public class DatabaseCommunicator {
         }
         List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> result = new ArrayList<>();
         Set<Student> students = schoolClass.getStudents();
+
         for(Student student: students){
             result.add(new Pair<>(student, getStudentGrades(student.getID())));
         }
+
         return result;
 
     }

@@ -1,9 +1,6 @@
 package sample.database;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,7 +11,8 @@ public class Teacher extends Person {
 
     private String title;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST)
     private Set<Subject> subjects = new HashSet<>();
 
     @OneToOne

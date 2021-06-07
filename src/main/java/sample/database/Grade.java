@@ -17,9 +17,6 @@ public class Grade {
     @ManyToOne
     private Student student;
 
-    @ManyToOne
-    private Teacher teacher;
-
     public Grade() {
     }
 
@@ -31,7 +28,7 @@ public class Grade {
         this.mark = mark;
         this.updateStudent(student);
         this.updateSubject(subject);
-        this.updateTeacher(teacher);
+
     }
 
     //two-sided relations functions
@@ -40,9 +37,7 @@ public class Grade {
         this.setStudent(student);
         student.setGrade(this);
     }
-    public void updateTeacher(Teacher teacher){
-        this.setTeacher(teacher);
-    }
+
     public void updateSubject(Subject subject){
         this.setSubject(subject);
     }
@@ -76,12 +71,5 @@ public class Grade {
         this.student = student;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
 }
 
