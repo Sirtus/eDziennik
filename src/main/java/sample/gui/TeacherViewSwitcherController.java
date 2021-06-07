@@ -8,6 +8,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import sample.database.Subject;
+import sample.database.Teacher;
 import sample.databaseCommunication.DatabaseCommunicator;
 import sample.gui.views.View;
 import sample.gui.views.ViewTypes;
@@ -24,6 +25,8 @@ public class TeacherViewSwitcherController extends View {
 
     private Set<Subject> subjects;
 
+    private Teacher teacher;
+
     public void initialize() {
 
     }
@@ -35,17 +38,15 @@ public class TeacherViewSwitcherController extends View {
 
     @Override
     public void refresh() {
+        teacher = viewSwitcher.getCurrentTeacherContext();
         DatabaseCommunicator communicator = viewSwitcher.getCommunicator();
         subjects = communicator.getTeacherSubjectsList(communicator.getUser().getID());
         for(Subject s: subjects){
             MenuItem item = new MenuItem(s.getName());
             subjectsButton.getItems().add(item);
-            item.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    System.out.println(item.getText());
-                    subjectsButton.setText(item.getText());
-                }
+            item.setOnAction((event) -> {
+//                System.out.println(item.getText());
+                subjectsButton.setText(item.getText());
             });
         }
     }
@@ -57,6 +58,8 @@ public class TeacherViewSwitcherController extends View {
 
     @FXML
     void switchViewToClassTutorView(ActionEvent event){
+        viewSwitcher.addToContext(teacher);
+        viewSwitcher.addToContext(teacher.getMyClass());
         viewSwitcher.setCurrentView(ViewTypes.CLASS_TUTOR);
     }
 
@@ -64,12 +67,13 @@ public class TeacherViewSwitcherController extends View {
     @FXML
     void switchViewToSubjectClassView(){
         for(Subject s: subjects){
-            if(s.getName() == subjectsButton.getText()){
+            if(s.getName().equals(subjectsButton.getText())){
                 viewSwitcher.addToContext(s);
                 System.out.println(s.getName());
                 break;
             }
         }
+        viewSwitcher.addToContext(teacher);
         viewSwitcher.setCurrentView(ViewTypes.TEACHER_VIEW);
     }
 }

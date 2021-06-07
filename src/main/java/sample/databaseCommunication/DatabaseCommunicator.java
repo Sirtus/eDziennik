@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -79,6 +80,9 @@ public class DatabaseCommunicator {
                     subjectGrades.add(grade);
                 }
             }
+            // oldest grades first not last
+            subjectGrades.sort(Comparator.comparingInt((Grade::getID)));
+
             result.add(new Pair<>(subject, subjectGrades));
 
         }
@@ -117,7 +121,7 @@ public class DatabaseCommunicator {
     }
 
 
-    public void insertGradeToDataBase(Grade grade){
+    public void insertGradeToDatabase(Grade grade){
         System.out.println(grade.getID());
         session.getTransaction().begin();
         session.persist(grade);

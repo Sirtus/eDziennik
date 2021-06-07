@@ -24,51 +24,6 @@
       <Insets bottom="50.0" left="1500.0" right="50.0" top="50.0" />
    </opaqueInsets>
    <children>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-            <Label text="Podaj login:">
-               <opaqueInsets>
-                  <Insets left="50.0" />
-               </opaqueInsets>
-            </Label>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-         <children>
-            <PasswordField fx:id="password" prefHeight="25.0" prefWidth="395.0" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <Label text="Podaj hasło:">
-               <opaqueInsets>
-                  <Insets left="50.0" />
-               </opaqueInsets>
-            </Label>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="80.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
-         <children>
-            <Button id="button" fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signIn" prefHeight="63.0" prefWidth="147.0" text="Zaloguj">
-               <opaqueInsets>
-                  <Insets left="50.0" />
-               </opaqueInsets>
-            </Button>
-         </children></HBox>
-      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
-         <children>
-            <Label fx:id="errorText" textFill="RED" />
-            <RadioButton fx:id="studentRadio" mnemonicParsing="false" text="uczeń">
-               <toggleGroup>
-                  <ToggleGroup fx:id="group" />
-               </toggleGroup>
-            </RadioButton>
-            <RadioButton fx:id="teacherRadio" mnemonicParsing="false" text="nauczyciel" toggleGroup="$group" />
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <children>
             <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="460.0" text="LOGOWANIE - eDziennik" textAlignment="CENTER">
@@ -81,9 +36,9 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Label text="Zaloguj jako:">
+            <Label text="Podaj login:">
                <opaqueInsets>
                   <Insets left="50.0" />
                </opaqueInsets>
@@ -95,5 +50,56 @@
             <TextField id="login" fx:id="login" alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="195.0" />
          </children>
       </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <Label text="Podaj hasło:">
+               <opaqueInsets>
+                  <Insets left="50.0" />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <PasswordField fx:id="password" prefHeight="25.0" prefWidth="395.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <Label text="Zaloguj jako:">
+               <opaqueInsets>
+                  <Insets left="50.0" />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <children>
+            <RadioButton fx:id="studentRadio" mnemonicParsing="false" text="uczeń">
+               <toggleGroup>
+                  <ToggleGroup fx:id="group" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="teacherRadio" mnemonicParsing="false" text="nauczyciel" toggleGroup="$group" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="80.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <children>
+            <VBox fx:id="errorText" alignment="CENTER" prefHeight="55.0" prefWidth="360.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="19.0" prefWidth="155.0" text="Nie znaleziono użytkownika." textAlignment="CENTER" textFill="RED" />
+                  <Label alignment="CENTER" prefHeight="18.0" prefWidth="216.0" text="Być może wybrałeś zły typ logowania?" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </VBox>
+            <Button id="button" fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signIn" prefHeight="63.0" prefWidth="147.0" text="Zaloguj">
+               <opaqueInsets>
+                  <Insets left="50.0" />
+               </opaqueInsets>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </GridPane>

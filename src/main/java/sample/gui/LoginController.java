@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import sample.databaseCommunication.DatabaseCommunicator;
 import sample.databaseCommunication.Login;
 import sample.gui.views.View;
@@ -30,7 +31,7 @@ public class LoginController {
     @FXML
     private RadioButton teacherRadio;
     @FXML
-    private Label errorText;
+    private VBox errorText;
     @FXML
     private Button loginButton;
 
@@ -46,6 +47,7 @@ public class LoginController {
             }
         });
         studentRadio.setSelected(true);
+        errorText.setVisible(false);
     }
 
     public void setCommunicator(DatabaseCommunicator communicator) {
@@ -57,13 +59,13 @@ public class LoginController {
     }
 
     @FXML
-    private void signIn(ActionEvent event){
+    private void signIn(ActionEvent event) {
 
         Login type = (teacherRadio.isSelected()) ? Login.TEACHER : Login.STUDENT;
         int userID = communicator.signIn(login.getText(), password.getText(), type);
 
         if (userID < 0) {
-            errorText.setText("Błond");
+            errorText.setVisible(true);
         }
         else {
             initializer.startMainLayout(userID);

@@ -40,6 +40,7 @@ public class MainLayoutController {
         previousViews.removeLast();
         View nextView = previousViews.getLast();
         viewContainer.getChildren().setAll(nextView.getRoot());
+        currentView = nextView;
         if (previousViews.size() <= 1) backButton.setDisable(true);
     }
 

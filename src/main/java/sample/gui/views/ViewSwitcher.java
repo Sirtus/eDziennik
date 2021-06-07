@@ -1,6 +1,7 @@
 package sample.gui.views;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextInputDialog;
 import javafx.util.Pair;
 import sample.database.*;
 import sample.databaseCommunication.DatabaseCommunicator;
@@ -9,16 +10,12 @@ import sample.gui.MainLayoutController;
 
 import javax.persistence.EntityManager;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ViewSwitcher {
     private final MainLayoutController mainLayoutController;
     private final EnumMap<ViewTypes, View> possibleViewsMap;
     private View currentView;
-    private int userId;
     private final DatabaseCommunicator communicator;
 
     private final LinkedList<Student> studentContext;
@@ -112,5 +109,17 @@ public class ViewSwitcher {
     public List<Pair<Subject, ArrayList<Grade>>> getGradesForStudent(Student student) {
         return communicator.getStudentGrades(student.getID());
     }
+
+    public Set<SchoolClass> getClassListByTeacherAndSubject(Teacher teacher, Subject subject) {
+        return communicator.getClassesListByTeacherAndSubject(teacher.getID(), subject.getID());
+    }
+
+    public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass(SchoolClass schoolClass) {
+        return communicator.getStudentsGradesBySchoolClass(schoolClass.getID());
+    }
+
+//    public void deleteGrade(Grade grade) {
+//        communicator.deleteGrade(grade);
+//    }
 
 }
