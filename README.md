@@ -95,3 +95,20 @@ Po wybraniu klasy, nauczyciel może dodawać, edytować i usuwać oceny uczniów
 
 [Legenda schematu](https://dbschema.com/documentation/layouts.html#symbols)
 
+## Interfejs do korzystania z bazy danych
+
+Komunikacja z bazą danych została zaimplementowana w klasie DatabaseCommunicator. Pozwala ona wykonywać zapytania do bazy danych
+przez publiczne metody. Po zalogowaniu przechowuje również informacje o zalogowanym w danej sesji użytkowniku. Poniżej znajduje się 
+lista funkcji, które można wywołać z tej klasy.
+
+* int signIn(String login, String password, Login type) - umożliwia zalogowanie do dziennika, zwraca ID użytkownika
+* Login getUserType() - zwraca typ zalogowanego użytkownika (STUDENT / TEACHER)
+* Person getUser() - zwraca zalogowanego użytkownika
+* List<Student\> getStudentsListBySchoolClass(int schoolClassID) - zwraca listę studentów z podanej klasy
+* Set<Subject\> getTeacherSubjectsList(int teacherID) - zwraca przedmioty, których uczy podany nauczyciel
+* List<Pair<Subject, ArrayList<Grade\>>> getStudentGrades(int studentID) - zwraca listę par <przedmiot - lista ocen podanego ucznia\>
+* List<Pair<Student, List<Pair<Subject, ArrayList<Grade\>>>>> getStudentsGradesBySchoolClass(int schoolClassID) - zwraca <pary uczeń - oceny ucznia\> wszystkich uczniów z podanej klasy
+* Set<SchoolClass\> getClassesListByTeacherAndSubject(int teacherID, int subjectID) - zwraca zbiór klas których podanego przedmiotu uczy podany nauczyciel
+* void insertGradeToDatabase(Grade grade) - umożliwia wstawienie oceny do bazy danych 
+* void editGrade(Grade grade, int newGrade) - umożliwia edycję oceny (zmianę jej wartości)
+* void deleteGrade(Grade grade) - umożliwia usunięcie oceny z bazy danych
