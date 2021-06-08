@@ -11,6 +11,13 @@ mvn compile javafx:run
 ```
 Przed uruchomieniem aplikacji potrzebny jest serwer bazodanowy Apache Derby na adresie 127.0.0.1  (nie załączony w repozytorium).
 
+Do uruchomienia serwera należy postępować według następujących kroków:
+* pobierz serwer  klikając w link:   https://ftp.man.poznan.pl/apache//db/derby/db-derby-10.15.2.0/db-derby-10.15.2.0-bin.zip
+* rozpakuj plik
+* wejdź w podkatalog bin
+* uruchom skrypt startNetworkServer
+
+
 W repozytorium znajduje się plik `MERGED_MOCK_DATA.sql` który pozwala wypełnić bazę przykładowymi danymi.
 
 Po wypełnieniu bazy tymi danymi można zalogować się do aplikacji m.in. przez te konta:
