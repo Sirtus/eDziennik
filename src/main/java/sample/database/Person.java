@@ -17,6 +17,7 @@ public abstract class Person {
     private String lastname;
     private String pesel;
     private LocalDate birthdate;
+    @Column(unique = true)
     private String login;
     private String password;
 
