@@ -1,14 +1,11 @@
 package sample.gui.views;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TextInputDialog;
 import javafx.util.Pair;
 import sample.database.*;
 import sample.databaseCommunication.DatabaseCommunicator;
-import sample.databaseCommunication.Login;
 import sample.gui.MainLayoutController;
 
-import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.util.*;
 
@@ -110,16 +107,12 @@ public class ViewSwitcher {
         return communicator.getStudentGrades(student.getID());
     }
 
-    public Set<SchoolClass> getClassListByTeacherAndSubject(Teacher teacher, Subject subject) {
-        return communicator.getClassesListByTeacherAndSubject(teacher.getID(), subject.getID());
+    public Set<SchoolClass> getClassesListEnrolledForSubject(Subject subject) {
+        return communicator.getClassesListEnrolledForSubject(subject.getID());
     }
 
     public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass(SchoolClass schoolClass) {
         return communicator.getStudentsGradesBySchoolClass(schoolClass.getID());
     }
-
-//    public void deleteGrade(Grade grade) {
-//        communicator.deleteGrade(grade);
-//    }
 
 }

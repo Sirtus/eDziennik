@@ -56,7 +56,7 @@ public class TeacherViewController extends View{
     public void refresh() {
         teacher = viewSwitcher.getCurrentTeacherContext();
         subject = viewSwitcher.getCurrentSubjectContext();
-        classSet = viewSwitcher.getClassListByTeacherAndSubject(teacher, subject);
+        classSet = viewSwitcher.getClassesListEnrolledForSubject(subject);
 
         resetTable();
     }

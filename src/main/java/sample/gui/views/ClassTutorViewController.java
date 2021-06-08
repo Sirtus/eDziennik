@@ -11,9 +11,8 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Pair;
 import sample.database.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ClassTutorViewController extends View {
 
@@ -31,7 +30,8 @@ public class ClassTutorViewController extends View {
 
     private void fillGrid() {
         resetGrid();
-        Set<Student> contents = schoolClass.getStudents();
+        List<Student> contents = schoolClass.getStudents().stream().
+                sorted(Comparator.comparing(Person::getFullName)).collect(Collectors.toList());
         int i = 0;
         for (Student student : contents) {
             addRow(student, i);

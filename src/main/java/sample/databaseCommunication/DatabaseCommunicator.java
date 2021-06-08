@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -48,7 +49,9 @@ public class DatabaseCommunicator {
         q.select(c).where(cb.equal(c.get("myClass"), schoolClassID));
 
         TypedQuery<Student> query = session.createQuery(q);
-        return query.getResultList();
+        List<Student> result = query.getResultList();
+        result.sort(Comparator.comparing(Person::getFullName));
+        return result;
     }
 
     public Set<Subject> getTeacherSubjectsList(int teacherID){
@@ -68,27 +71,23 @@ public class DatabaseCommunicator {
 
         List<Pair<Subject, ArrayList<Grade>>> result = new ArrayList<>();
         Set<Subject> studentSubjects = student.getMyClass().getSubjects();
-        Set<Grade>  studentGrades = student.getGrades();
-        boolean subjectOnList;
+        Set<Grade> studentGrades = student.getGrades();
         for(Subject subject: studentSubjects){
-
             ArrayList<Grade> subjectGrades = new ArrayList<>();
-
 
             for(Grade grade: studentGrades){
                 if(grade.getSubject().equals(subject)){
                     subjectGrades.add(grade);
                 }
             }
-            // oldest grades first not last
+            // oldest grades first
             subjectGrades.sort(Comparator.comparingInt((Grade::getID)));
 
             result.add(new Pair<>(subject, subjectGrades));
-
         }
-
         return result;
     }
+
     public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass(int schoolClassID) {
         SchoolClass schoolClass = session.find(SchoolClass.class, schoolClassID);
         if(schoolClass == null){
@@ -101,25 +100,17 @@ public class DatabaseCommunicator {
             result.add(new Pair<>(student, getStudentGrades(student.getID())));
         }
 
+        result.sort(Comparator.comparing(pair -> pair.getKey().getFullName()));
         return result;
-
     }
 
-
-    public Set<SchoolClass> getClassesListByTeacherAndSubject(int teacherID, int subjectID){
-        Teacher teacher = session.find(Teacher.class, teacherID);
-        if(teacher == null){
+    public Set<SchoolClass> getClassesListEnrolledForSubject(int subjectID) {
+        Subject subject = session.find(Subject.class, subjectID);
+        if(subject == null) {
             return null;
         }
-        Set<Subject> teacherSubjects = teacher.getSubjects();
-        for(Subject s: teacherSubjects){
-            if(s.getID() == subjectID){
-                return s.getClasses();
-            }
-        }
-        return null;
+        return subject.getClasses();
     }
-
 
     public void insertGradeToDatabase(Grade grade){
         System.out.println(grade.getID());
