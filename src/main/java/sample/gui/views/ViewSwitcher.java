@@ -104,15 +104,15 @@ public class ViewSwitcher {
     }
 
     public List<Pair<Subject, ArrayList<Grade>>> getGradesForStudent(Student student) {
-        return communicator.getStudentGrades(student.getID());
+        return communicator.getStudentGrades(student);
     }
 
     public Set<SchoolClass> getClassesListEnrolledForSubject(Subject subject) {
-        return communicator.getClassesListEnrolledForSubject(subject.getID());
+        return communicator.getClassesListEnrolledForSubject(subject);
     }
 
     public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass(SchoolClass schoolClass) {
-        return communicator.getStudentsGradesBySchoolClass(schoolClass.getID());
+        return communicator.getStudentsGradesBySchoolClass(schoolClass);
     }
 
 }

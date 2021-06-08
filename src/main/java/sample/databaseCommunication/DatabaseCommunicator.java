@@ -42,7 +42,7 @@ public class DatabaseCommunicator {
         return user;
     }
 
-    public List<Student> getStudentsListBySchoolClass(int schoolClassID){
+    /**public List<Student> getStudentsListBySchoolClass(int schoolClassID){
         CriteriaBuilder cb = this.session.getCriteriaBuilder();
         CriteriaQuery<Student> q = cb.createQuery(Student.class);
         Root<Student> c = q.from(Student.class);
@@ -52,18 +52,16 @@ public class DatabaseCommunicator {
         List<Student> result = query.getResultList();
         result.sort(Comparator.comparing(Person::getFullName));
         return result;
-    }
+    }**/
 
-    public Set<Subject> getTeacherSubjectsList(int teacherID){
-        Teacher teacher = session.find(Teacher.class, teacherID);
+    public Set<Subject> getTeacherSubjectsList(Teacher teacher){
         if(teacher != null) {
             return teacher.getSubjects();
         }
         return null;
     }
 
-    public List<Pair<Subject, ArrayList<Grade>>> getStudentGrades(int studentID){
-        Student student = session.find(Student.class, studentID);
+    public List<Pair<Subject, ArrayList<Grade>>> getStudentGrades(Student student){
 
         if(student == null){
             return null;
@@ -88,8 +86,7 @@ public class DatabaseCommunicator {
         return result;
     }
 
-    public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass(int schoolClassID) {
-        SchoolClass schoolClass = session.find(SchoolClass.class, schoolClassID);
+    public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass( SchoolClass schoolClass) {
         if(schoolClass == null){
             return null;
         }
@@ -97,15 +94,14 @@ public class DatabaseCommunicator {
         Set<Student> students = schoolClass.getStudents();
 
         for(Student student: students){
-            result.add(new Pair<>(student, getStudentGrades(student.getID())));
+            result.add(new Pair<>(student, getStudentGrades(student)));
         }
 
         result.sort(Comparator.comparing(pair -> pair.getKey().getFullName()));
         return result;
     }
 
-    public Set<SchoolClass> getClassesListEnrolledForSubject(int subjectID) {
-        Subject subject = session.find(Subject.class, subjectID);
+    public Set<SchoolClass> getClassesListEnrolledForSubject(Subject subject) {
         if(subject == null) {
             return null;
         }

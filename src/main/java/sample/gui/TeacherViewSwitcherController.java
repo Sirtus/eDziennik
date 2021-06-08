@@ -40,7 +40,7 @@ public class TeacherViewSwitcherController extends View {
     public void refresh() {
         teacher = viewSwitcher.getCurrentTeacherContext();
         DatabaseCommunicator communicator = viewSwitcher.getCommunicator();
-        subjects = communicator.getTeacherSubjectsList(communicator.getUser().getID());
+        subjects = communicator.getTeacherSubjectsList((Teacher) communicator.getUser());
         for(Subject s: subjects){
             MenuItem item = new MenuItem(s.getName());
             subjectsButton.getItems().add(item);
