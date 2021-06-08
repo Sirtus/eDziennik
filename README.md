@@ -86,5 +86,5 @@ Po wybraniu klasy, nauczyciel może dodawać, edytować i usuwać oceny uczniów
 
 <img src="https://github.com/Sirtus/eDziennik/blob/assets/demo%20images/schema.png" alt="Database schema" height=500px width=auto>
 
-[Legenda schematu](https://dbschema.com/documentation/layouts.html)
+[Legenda schematu](https://dbschema.com/documentation/layouts.html#symbols)
 
