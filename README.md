@@ -112,3 +112,11 @@ lista funkcji, które można wywołać z tej klasy.
 * void insertGradeToDatabase(Grade grade) - umożliwia wstawienie oceny do bazy danych 
 * void editGrade(Grade grade, int newGrade) - umożliwia edycję oceny (zmianę jej wartości)
 * void deleteGrade(Grade grade) - umożliwia usunięcie oceny z bazy danych
+
+
+## Zabezpieczenia bazy danych
+Baza danych jest zabezpieczona z poziomu zapytań do bazy danych i często również z poziomu widoków aplikacji. 
+Bezpieczne dodawanie elementów do bazy jest możliwe ponieważ:
+
+* dodanie oceny spoza zakresu 1-6 nie jest możliwe i od strony bazy danych jak i aplikacji
+* baza danych nie doda użytkownka z istniejącym już loginem w bazie
