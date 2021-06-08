@@ -11,6 +11,7 @@ public class Subject {
     @GeneratedValue(
             strategy = GenerationType.AUTO)
     private int ID;
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne(optional = false)

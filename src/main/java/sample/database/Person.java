@@ -13,12 +13,17 @@ public abstract class Person {
     @GeneratedValue(
             strategy = GenerationType.AUTO)
     private int ID;
+    @Column(nullable = false)
     private String firstname;
+    @Column(nullable = false)
     private String lastname;
+    @Column(nullable = false)
     private String pesel;
+    @Column(nullable = false)
     private LocalDate birthdate;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String login;
+    @Column(nullable = false)
     private String password;
 
     public Person() {

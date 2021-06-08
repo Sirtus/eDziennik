@@ -9,13 +9,14 @@ import java.util.Set;
 @Entity
 public class Teacher extends Person {
 
+    @Column(nullable = false)
     private String title;
 
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST)
     private Set<Subject> subjects = new HashSet<>();
 
-    @OneToOne
+    @OneToOne(optional = true)
     private SchoolClass myClass;
 
     public Teacher() {

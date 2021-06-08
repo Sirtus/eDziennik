@@ -12,6 +12,7 @@ public class SchoolClass {
     private int ID;
     private int numberOfStudents;
     private int classYear;
+    @Column(nullable = false)
     private String department;
 
     @OneToMany(mappedBy = "myClass")
