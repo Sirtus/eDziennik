@@ -85,9 +85,9 @@ public class DatabaseCommunicator {
         return result;
     }
 
-    public Set<SchoolClass> getClassesListEnrolledForSubject(Subject subject) {
+    public List<SchoolClass> getClassesListEnrolledForSubject(Subject subject) {
         if(subject == null) return null;
-        return subject.getClasses();
+        return subject.getClasses().stream().sorted(Comparator.comparing(SchoolClass::getName)).collect(Collectors.toList());
     }
 
     public List<Pair<Student, List<Grade>>> getStudentGradesByClassForSubject(SchoolClass schoolClass, Subject subject) {

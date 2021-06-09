@@ -8,7 +8,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import sample.database.*;
-import sample.databaseCommunication.DatabaseCommunicator;
 
 import java.util.*;
 
@@ -35,7 +34,7 @@ public class TeacherViewController extends View{
     @FXML
     TableColumn<TableStudent, Button> add;
 
-    private Set<SchoolClass> classSet;
+    private List<SchoolClass> classList;
     private Teacher teacher;
     private Subject subject;
     private SchoolClass currentClass;
@@ -56,7 +55,7 @@ public class TeacherViewController extends View{
     public void refresh() {
         teacher = viewSwitcher.getCurrentTeacherContext();
         subject = viewSwitcher.getCurrentSubjectContext();
-        classSet = communicator.getClassesListEnrolledForSubject(subject);
+        classList = communicator.getClassesListEnrolledForSubject(subject);
 
         resetTable();
     }
@@ -88,7 +87,7 @@ public class TeacherViewController extends View{
         classButton.getItems().clear();
         studentsTable.getItems().clear();
         subjectName.setText(subject.getName());
-        for(SchoolClass sc: classSet) {
+        for(SchoolClass sc: classList) {
             MenuItem item = new MenuItem(sc.getName());
             classButton.getItems().add(item);
             item.setOnAction((event) -> {
