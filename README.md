@@ -97,25 +97,33 @@ Po wybraniu klasy, nauczyciel może dodawać, edytować i usuwać oceny uczniów
 
 ## Interfejs do korzystania z bazy danych
 
-Komunikacja z bazą danych została zaimplementowana w klasie DatabaseCommunicator. Pozwala ona wykonywać zapytania do bazy danych
-przez publiczne metody. Po zalogowaniu przechowuje również informacje o zalogowanym w danej sesji użytkowniku. Poniżej znajduje się 
-lista funkcji, które można wywołać z tej klasy.
+Komunikacja z bazą danych została zaimplementowana w klasie DatabaseCommunicator. Pozwala ona m.in. na zalogowanie oraz pobieranie danych na temat obecnie zalogowanego użytkownika. Poniżej znajduje się lista metod tej klasy związanych z logowaniem:
 
-* int signIn(String login, String password, Login type) - umożliwia zalogowanie do dziennika, zwraca ID użytkownika
+* int signIn(String login, String password, Login type) - umożliwia zalogowanie do dziennika, zwraca ID użytkownika po zalogowaniu lub -1 w przypadku błędu.
 * Login getUserType() - zwraca typ zalogowanego użytkownika (STUDENT / TEACHER)
 * Person getUser() - zwraca zalogowanego użytkownika
-* Set<Subject\> getTeacherSubjectsList(Teacher teacher) - zwraca przedmioty, których uczy podany nauczyciel
-* List<Pair<Subject, ArrayList<Grade\>>> getStudentGrades(Student student) - zwraca listę par <przedmiot - lista ocen podanego ucznia\>
-* List<Pair<Student, List<Pair<Subject, ArrayList<Grade\>>>>> getStudentsGradesBySchoolClass(SchoolClass schoolClass) - zwraca pary <uczeń - oceny ucznia\> wszystkich uczniów z podanej klasy
-* Set<SchoolClass\> getClassesListEnrolledForSubject(Subject subject) - zwraca zbiór klas których podanego przedmiotu uczy podany nauczyciel
+
+Klasa ta pozwala również wykonywać "zapytania do bazy danych" przez publiczne metody. Zapytania są w cudzysłowiu, ponieważ większość funkcji nie odnosi się bezpośrednio do bazy danych poprzez sesję i nie wywołuje żadnych select'ów. Zamiast tego wykorzystujemy zamodelowane relacje dwustronne i jedynie dopowiednio parsujemy dane otrzymane z getter'ów, a wszystkie konieczne zapytania są automatycznie wykonywane przez Hibernate. Oznacza to więc że osobna klasy do komunikacji z bazą danych jest w większości zbędna - te dane możnaby samodzielnie parsować w odpowiednich widokach. Zdecydowaliśmy się jednak umieścić w tej klasie kilka nietrywialnych funkcji, a w widokach zasymulować ręczne pobieranie danych z bazy poprzez wywołanie metody na obiekcie DatabaseCommunicator. Poniżej znajduje się lista tych metod:
+
+
+* List<Student\> getStudentListBySchoolClass(SchoolClass schoolClass) - zwraca listę uczniów z podanej klasy posortowaną po imionach.
+* List<Subject\> getTeacherSubjectsList(Teacher teacher) - zwraca przedmioty, których uczy podany nauczyciel posortowane alfabetycznie.
+* List<Grade\> getStudentGradesForSubject(Student student, Subject subject) - zwraca oceny ucznia dla danego przedmiotu posortowane od najstarszej.
+* List<Pair<Subject, List<Grade\>>> getStudentGrades(Student student) - dla podanego ucznia zwraca listę par <przedmiot, lista ocen ucznia z tego przedmiotu\>
+* List<Pair<Student, List<Pair<Subject, List<Grade\>>>>> getStudentGradesBySchoolClass(SchoolClass schoolClass) - zwraca pary <uczeń, oceny ucznia ze wszystkich przedmiotów\> wszystkich uczniów z podanej klasy
+* List<SchoolClass> getClassesListEnrolledForSubject(Subject subject) - zwraca listę klas zapisanych na podany przedmiot
+* List<Pair<Student, List<Grade\>>> getStudentGradesByClassForSubject(SchoolClass schoolClass, Subject subject) - zwraca listę par <uczeń, jego oceny> dla każdego ucznia danej klasy z jednego konkretnego przedmiotu.
+  
+  
 * void insertGradeToDatabase(Grade grade) - umożliwia wstawienie oceny do bazy danych 
 * void editGrade(Grade grade, int newGrade) - umożliwia edycję oceny (zmianę jej wartości)
 * void deleteGrade(Grade grade) - umożliwia usunięcie oceny z bazy danych
 
 
 ## Zabezpieczenia bazy danych
-Baza danych jest zabezpieczona z poziomu zapytań do bazy danych i często również z poziomu widoków aplikacji. 
-Bezpieczne dodawanie elementów do bazy jest możliwe ponieważ:
+W celu ochrony przed dodaniem błędnych danych, na poziomie bazy danych wprowadzono następujące zabezpieczenia:
 
-* dodanie oceny spoza zakresu 1-6 nie jest możliwe i od strony bazy danych jak i aplikacji
-* baza danych nie doda użytkownka z istniejącym już loginem w bazie
+* dodanie oceny spoza zakresu 1-6 nie jest możliwe (zarówno na poziomie bazy danych jak i po stronie aplikacji).
+* login użytkownika musi być unikalny.
+* żadna pozycja nie może zawierać wartości NULL. (za wyjątkiem wychowywanej klasy w tabeli Teacher)
+
