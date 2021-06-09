@@ -28,7 +28,7 @@ Po wypełnieniu bazy tymi danymi można zalogować się do aplikacji m.in. przez
 | Nauczyciel |   Osmund Inder   | haslo123 |
 
 
-## Oryginalna koncepcja:
+## Oryginalna koncepcja (nie zrealizowana w pełni):
 W czasach zdalnego nauczania szkoła nie może istnieć bez
 elektornicznego systemu zarządzania, dlatego zdecydowaliśmy 
 się na stworzenie e-dziennika, który umożliwi uczniom przejrzenie
@@ -43,7 +43,7 @@ język Java oraz framework Hibernate. GUI wykonamy w JavaFX.
 * Zamiast PostgreSQL zastosowaliśmy Apache Derby.
 * Zrezygnowaliśmy ze szczęśliwych numerków oraz uwag z zachowania.
 
-## Co zostało zrobione:
+## Co dokładnie zostało zrobione:
 * Ekran logowania
 
 By uzyskać dostęp do aplikacji należy zalogować się przy pomocy loginu i hasła.
@@ -106,18 +106,18 @@ Komunikacja z bazą danych została zaimplementowana w klasie DatabaseCommunicat
 Klasa ta pozwala również wykonywać "zapytania do bazy danych" przez publiczne metody. Zapytania są w cudzysłowiu, ponieważ większość funkcji nie odnosi się bezpośrednio do bazy danych poprzez sesję i nie wywołuje żadnych select'ów. Zamiast tego wykorzystujemy zamodelowane relacje dwustronne i jedynie odpowiednio parsujemy dane otrzymane z getter'ów, a wszystkie konieczne zapytania są automatycznie wykonywane przez Hibernate. Oznacza to więc że osobna klasy do komunikacji z bazą danych jest w większości zbędna - te dane możnaby samodzielnie parsować w odpowiednich widokach. Zdecydowaliśmy się jednak umieścić w tej klasie kilka nietrywialnych funkcji, a w widokach zasymulować ręczne pobieranie danych z bazy poprzez wywołanie metody na obiekcie DatabaseCommunicator. Poniżej znajduje się lista tych metod:
 
 
-* List<Student\> getStudentListBySchoolClass(SchoolClass schoolClass) - zwraca listę uczniów z podanej klasy posortowaną po imionach.
-* List<Subject\> getTeacherSubjectsList(Teacher teacher) - zwraca przedmioty, których uczy podany nauczyciel posortowane alfabetycznie.
-* List<Grade\> getStudentGradesForSubject(Student student, Subject subject) - zwraca oceny ucznia dla danego przedmiotu posortowane od najstarszej.
-* List<Pair<Subject, List<Grade\>>> getStudentGrades(Student student) - dla podanego ucznia zwraca listę par <przedmiot, lista ocen ucznia z tego przedmiotu\>
-* List<Pair<Student, List<Pair<Subject, List<Grade\>>>>> getStudentGradesBySchoolClass(SchoolClass schoolClass) - zwraca pary <uczeń, oceny ucznia ze wszystkich przedmiotów\> wszystkich uczniów z podanej klasy
-* List<SchoolClass> getClassesListEnrolledForSubject(Subject subject) - zwraca listę klas zapisanych na podany przedmiot
-* List<Pair<Student, List<Grade\>>> getStudentGradesByClassForSubject(SchoolClass schoolClass, Subject subject) - zwraca listę par <uczeń, jego oceny> dla każdego ucznia danej klasy z jednego konkretnego przedmiotu.
+* `List<Student> getStudentListBySchoolClass(SchoolClass schoolClass)` - zwraca listę uczniów z podanej klasy posortowaną po imionach.
+* `List<Subject> getTeacherSubjectsList(Teacher teacher)` - zwraca przedmioty, których uczy podany nauczyciel posortowane alfabetycznie.
+* `List<Grade> getStudentGradesForSubject(Student student, Subject subject)` - zwraca oceny ucznia dla danego przedmiotu posortowane od najstarszej.
+* `List<Pair<Subject, List<Grade>>> getStudentGrades(Student student)` - dla podanego ucznia zwraca listę par <przedmiot, lista ocen ucznia z tego przedmiotu\>
+* `List<Pair<Student, List<Pair<Subject, List<Grade>>>>> getStudentGradesBySchoolClass(SchoolClass schoolClass)` - zwraca pary <uczeń, oceny ucznia ze wszystkich przedmiotów\> wszystkich uczniów z podanej klasy
+* `List<SchoolClass> getClassesListEnrolledForSubject(Subject subject)` - zwraca listę klas zapisanych na podany przedmiot
+* `List<Pair<Student, List<Grade\>>> getStudentGradesByClassForSubject(SchoolClass schoolClass, Subject subject)` - zwraca listę par <uczeń, jego oceny> dla każdego ucznia danej klasy z jednego konkretnego przedmiotu.
   
   
-* void insertGradeToDatabase(Grade grade) - umożliwia wstawienie oceny do bazy danych 
-* void editGrade(Grade grade, int newGrade) - umożliwia edycję oceny (zmianę jej wartości)
-* void deleteGrade(Grade grade) - umożliwia usunięcie oceny z bazy danych
+* `void insertGradeToDatabase(Grade grade)` - umożliwia wstawienie oceny do bazy danych 
+* `void editGrade(Grade grade, int newGrade)` - umożliwia edycję oceny (zmianę jej wartości)
+* `void deleteGrade(Grade grade)` - umożliwia usunięcie oceny z bazy danych
 
 
 ## Zabezpieczenia bazy danych
