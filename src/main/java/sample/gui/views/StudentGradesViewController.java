@@ -31,12 +31,12 @@ public class StudentGradesViewController extends View {
     }
 
     private void fillGrid() {
-        List<Pair<Subject, ArrayList<Grade>>> contents = viewSwitcher.getGradesForStudent(student);
+        List<Pair<Subject, List<Grade>>> contents = communicator.getStudentGrades(student);
 
         int gradeColumns = contents.stream().map(Pair::getValue).mapToInt(List::size).max().orElseThrow();
         resetGrid(gradeColumns);
         int i = 0;
-        for (Pair<Subject, ArrayList<Grade>> subjectGradesPair : contents) {
+        for (Pair<Subject, List<Grade>> subjectGradesPair : contents) {
             addRow(subjectGradesPair.getKey(), subjectGradesPair.getValue(), i);
             i++;
         }

@@ -56,7 +56,7 @@ public class TeacherViewController extends View{
     public void refresh() {
         teacher = viewSwitcher.getCurrentTeacherContext();
         subject = viewSwitcher.getCurrentSubjectContext();
-        classSet = viewSwitcher.getClassesListEnrolledForSubject(subject);
+        classSet = communicator.getClassesListEnrolledForSubject(subject);
 
         resetTable();
     }
@@ -72,20 +72,14 @@ public class TeacherViewController extends View{
 
     public void updateTable() {
         studentsTable.getItems().clear();
+        List<Pair<Student, List<Grade>>> classGrades = communicator.getStudentGradesByClassForSubject(currentClass, subject);
 
-        List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> students = viewSwitcher.getStudentsGradesBySchoolClass(currentClass);
-        ArrayList<TableStudent> ts = new ArrayList<>();
-
-        for(Pair<Student, List<Pair<Subject, ArrayList<Grade>>>> studentListPair: students) {
-            Student student = studentListPair.getKey();
-            for(Pair<Subject, ArrayList<Grade>> subjectGradeListPair: studentListPair.getValue()) {
-                if(subjectGradeListPair.getKey().getID() == subject.getID()) {
-                    ts.add(new TableStudent(student, subject, teacher, subjectGradeListPair.getValue(), viewSwitcher, this));
-                }
-            }
-        }
-        for(TableStudent t: ts) {
-            studentsTable.getItems().add(t);
+        for(Pair<Student, List<Grade>> studentGrades : classGrades) {
+            Student student = studentGrades.getKey();
+            List<Grade> grades = studentGrades.getValue();
+            studentsTable.getItems().add(
+                    new TableStudent(student, subject, teacher, grades, viewSwitcher, this)
+            );
         }
     }
 
@@ -95,7 +89,7 @@ public class TeacherViewController extends View{
         studentsTable.getItems().clear();
         subjectName.setText(subject.getName());
         for(SchoolClass sc: classSet) {
-            MenuItem item = new MenuItem(sc.getYear() + "" + sc.getDepartment());
+            MenuItem item = new MenuItem(sc.getName());
             classButton.getItems().add(item);
             item.setOnAction((event) -> {
                 classButton.setText(item.getText());

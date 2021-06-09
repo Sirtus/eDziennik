@@ -3,6 +3,7 @@ package sample.database;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -29,14 +30,12 @@ public class Subject {
 
     public Subject(String name, Set<Teacher> teachers, Set<SchoolClass> classes) {
         this.name = name;
-        Iterator<Teacher> teacher = teachers.iterator();
-        while(teacher.hasNext()){
-            this.addTeacher(teacher.next());
+        for (Teacher value : teachers) {
+            this.addTeacher(value);
         }
 
-        Iterator<SchoolClass> schoolClass = classes.iterator();
-        while(schoolClass.hasNext()){
-            this.addClass(schoolClass.next());
+        for (SchoolClass aClass : classes) {
+            this.addClass(aClass);
         }
     }
 
@@ -79,5 +78,19 @@ public class Subject {
 
     public void setClass(SchoolClass schoolClass) {
         this.classes.add(schoolClass);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subject subject = (Subject) o;
+        return ID == subject.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 }

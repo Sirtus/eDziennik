@@ -101,4 +101,8 @@ public class SchoolClass {
     public void setSubject(Subject subject) {
         this.subjects.add(subject);
     }
+
+    public String getName() {
+        return classYear + department;
+    }
 }

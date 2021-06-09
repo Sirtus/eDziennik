@@ -13,6 +13,7 @@ import sample.databaseCommunication.DatabaseCommunicator;
 import sample.gui.views.View;
 import sample.gui.views.ViewTypes;
 
+import java.util.List;
 import java.util.Set;
 
 public class TeacherViewSwitcherController extends View {
@@ -23,7 +24,7 @@ public class TeacherViewSwitcherController extends View {
     @FXML
     private MenuButton subjectsButton;
 
-    private Set<Subject> subjects;
+    private List<Subject> subjects;
 
     private Teacher teacher;
 
@@ -40,7 +41,7 @@ public class TeacherViewSwitcherController extends View {
     public void refresh() {
         teacher = viewSwitcher.getCurrentTeacherContext();
         DatabaseCommunicator communicator = viewSwitcher.getCommunicator();
-        subjects = communicator.getTeacherSubjectsList(communicator.getUser().getID());
+        subjects = communicator.getTeacherSubjectsList(teacher);
         for(Subject s: subjects){
             MenuItem item = new MenuItem(s.getName());
             subjectsButton.getItems().add(item);

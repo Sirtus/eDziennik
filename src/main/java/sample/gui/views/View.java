@@ -6,12 +6,18 @@ import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import sample.databaseCommunication.DatabaseCommunicator;
 
 public abstract class View {
     protected ViewSwitcher viewSwitcher;
+    protected DatabaseCommunicator communicator;
 
     public void setViewSwitcher(ViewSwitcher viewSwitcher) {
         this.viewSwitcher = viewSwitcher;
+    }
+
+    public void setCommunicator(DatabaseCommunicator communicator) {
+        this.communicator = communicator;
     }
 
     public abstract Node getRoot();

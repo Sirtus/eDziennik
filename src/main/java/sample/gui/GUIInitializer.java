@@ -75,7 +75,6 @@ public class GUIInitializer {
                 viewSwitcher.setCurrentView(ViewTypes.STUDENT_GRADES);
             }
             case TEACHER -> {
-                // to jest tymczasowe, potem będzie widok dla nauczyciela w którym on sobie wybiera między uczonymi przedmiotami a wychowywaną klasą.
                 Teacher temp = (Teacher) communicator.getUser();
                 viewSwitcher.addToContext(temp);
                 viewSwitcher.addToContext(temp.getMyClass());

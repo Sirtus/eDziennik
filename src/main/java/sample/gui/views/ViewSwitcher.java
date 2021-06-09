@@ -36,6 +36,7 @@ public class ViewSwitcher {
                 loader.load();
                 View view = loader.getController();
                 view.setViewSwitcher(this);
+                view.setCommunicator(communicator);
                 possibleViewsMap.put(type, view);
             }
             catch (IOException e) {
@@ -101,18 +102,6 @@ public class ViewSwitcher {
 
     public DatabaseCommunicator getCommunicator() {
         return communicator;
-    }
-
-    public List<Pair<Subject, ArrayList<Grade>>> getGradesForStudent(Student student) {
-        return communicator.getStudentGrades(student.getID());
-    }
-
-    public Set<SchoolClass> getClassesListEnrolledForSubject(Subject subject) {
-        return communicator.getClassesListEnrolledForSubject(subject.getID());
-    }
-
-    public List<Pair<Student, List<Pair<Subject, ArrayList<Grade>>>>> getStudentsGradesBySchoolClass(SchoolClass schoolClass) {
-        return communicator.getStudentsGradesBySchoolClass(schoolClass.getID());
     }
 
 }

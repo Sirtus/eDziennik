@@ -30,8 +30,7 @@ public class ClassTutorViewController extends View {
 
     private void fillGrid() {
         resetGrid();
-        List<Student> contents = schoolClass.getStudents().stream().
-                sorted(Comparator.comparing(Person::getFullName)).collect(Collectors.toList());
+        List<Student> contents = communicator.getStudentListBySchoolClass(schoolClass);
         int i = 0;
         for (Student student : contents) {
             addRow(student, i);

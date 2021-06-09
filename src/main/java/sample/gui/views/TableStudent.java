@@ -8,8 +8,10 @@ import sample.database.Grade;
 import sample.database.Student;
 import sample.database.Subject;
 import sample.database.Teacher;
+import sample.databaseCommunication.DatabaseCommunicator;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class TableStudent {
@@ -26,9 +28,10 @@ public class TableStudent {
 
     private final TeacherViewController teacherViewController;
     private final ViewSwitcher viewSwitcher;
+    private final DatabaseCommunicator communicator;
 
 
-    public TableStudent(Student student, Subject subject, Teacher teacher, ArrayList<Grade> grades,
+    public TableStudent(Student student, Subject subject, Teacher teacher, List<Grade> grades,
                         ViewSwitcher viewSwitcher, TeacherViewController teacherViewController) {
 
         this.teacherViewController = teacherViewController;
@@ -38,6 +41,7 @@ public class TableStudent {
         this.viewSwitcher = viewSwitcher;
         this.gradesBox = new HBox();
         this.grades = new ArrayList<>();
+        this.communicator = viewSwitcher.getCommunicator();
 
         startAddGradeButton();
         startGradeButtons(grades);
@@ -61,7 +65,7 @@ public class TableStudent {
         });
     }
 
-    private void startGradeButtons(ArrayList<Grade> grades) {
+    private void startGradeButtons(List<Grade> grades) {
         for (Grade g : grades) {
             Button gradeButton = new Button();
             gradeButton.setText(Integer.toString(g.getMark()));
@@ -99,18 +103,17 @@ public class TableStudent {
     private void addGrade(String gradeStr) {
         Grade gradeToInsert = new Grade(Integer.parseInt(gradeStr), subject, student, teacher);
 
-        viewSwitcher.getCommunicator().insertGradeToDatabase(gradeToInsert);
+        communicator.insertGradeToDatabase(gradeToInsert);
         teacherViewController.updateTable();
     }
 
     private void editGrade(String gradeStr, Grade grade) {
-
-        viewSwitcher.getCommunicator().editGrade(grade, Integer.parseInt(gradeStr));
+        communicator.editGrade(grade, Integer.parseInt(gradeStr));
         teacherViewController.updateTable();
     }
 
     private void deleteGrade(Grade grade) {
-        viewSwitcher.getCommunicator().deleteGrade(grade);
+        communicator.deleteGrade(grade);
         teacherViewController.updateTable();
     }
 
